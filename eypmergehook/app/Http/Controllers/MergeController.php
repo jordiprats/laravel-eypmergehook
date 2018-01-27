@@ -18,6 +18,6 @@ class MergeController extends Controller
     Log::info($request->json()->all());
     #signature = 'sha1=' + OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new('sha1'), ENV['SECRET_TOKEN'], payload_body)
 
-    return [ 'penis'=> '8==D' ];
+    return [ 'penis'=> '8===D' ];
   }
 }
