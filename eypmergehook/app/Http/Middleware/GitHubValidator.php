@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Illuminate\Support\Facades\Log;
+use Illuminate\Http\Response;
 use Closure;
 
 class GitHubValidator
