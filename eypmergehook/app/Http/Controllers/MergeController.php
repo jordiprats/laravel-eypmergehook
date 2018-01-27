@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Log;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Request;
 
 class MergeController extends Controller
 {
