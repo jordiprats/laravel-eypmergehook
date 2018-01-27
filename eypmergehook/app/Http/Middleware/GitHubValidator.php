@@ -18,7 +18,6 @@ class GitHubValidator
   public function handle($request, Closure $next)
   {
     # This hash signature is passed along with each request in the headers as X-Hub-Signature
-    #signature = 'sha1=' + OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new('sha1'), ENV['SECRET_TOKEN'], payload_body)
 
     if(!isset($_SERVER['HTTP_X_HUB_SIGNATURE']))
     {
@@ -30,6 +29,7 @@ class GitHubValidator
       $signature = $_SERVER['HTTP_X_HUB_SIGNATURE'];
       Log::info($signature);
       # sha1=3c73064d4c73156f9d212a3bdf8c343524538806
+      # signature = 'sha1=' + OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new('sha1'), ENV['SECRET_TOKEN'], payload_body)
       return response()->json(['penis' => '8==D']);
     }
 
