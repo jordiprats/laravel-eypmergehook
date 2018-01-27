@@ -15,7 +15,19 @@ class MergeController extends Controller
 
   public function mergeHook(Request $request)
   {
-    Log::info($request->json()->all());
-    return [ 'penis'=> 1 ];
+    # This hash signature is passed along with each request in the headers as X-Hub-Signature
+    if($request.isJson())
+    {
+      if($request.hasHeader("X-Hub-Signature"))
+      {
+        $signature=header("X-Hub-Signature", string);
+        Log::info("signature: " + $signature);
+        Log::info($request->json()->all());
+        return [ 'penis'=> '8==D' ];
+      }
+      return [ 'penis'=> '8==D' ];
+    }
+
+    return [ 'penis'=> '8==D' ];
   }
 }
