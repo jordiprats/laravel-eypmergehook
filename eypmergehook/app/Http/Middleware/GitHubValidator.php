@@ -21,13 +21,13 @@ class GitHubValidator
 
     if(!isset($_SERVER['HTTP_X_HUB_SIGNATURE']))
     {
-      return [ 'penis'=> '8=D' ];
+      return '/';
     }
 
     if($_SERVER['HTTP_X_HUB_SIGNATURE'] != '123456')
     {
       Log::info($_SERVER['HTTP_X_HUB_SIGNATURE']);
-      return [ 'penis'=> '8==D' ];
+      return '/';
     }
 
     return $next($request);

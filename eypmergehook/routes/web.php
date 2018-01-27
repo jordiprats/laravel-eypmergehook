@@ -12,7 +12,10 @@
 */
 Route::get('/github/webhook', 'MergeController@status')->name('mergehook.status');
 #Route::post('/github/webhook', 'MergeController@mergeHook')->name('mergehook');
-Route::post('/github/webhook', array('uses' => 'MergeController@mergeHook','middleware' => ['githubvalidator']))->name('mergehook');
+Route::post('/github/webhook', array(
+                                      'uses' => 'MergeController@mergeHook',
+                                      'middleware' => ['githubvalidator']
+                                    ))->name('mergehook');
 
 Route::get('/', function () {
     return view('welcome');
