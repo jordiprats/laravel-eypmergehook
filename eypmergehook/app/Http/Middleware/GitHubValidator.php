@@ -27,7 +27,9 @@ class GitHubValidator
 
     if($_SERVER['HTTP_X_HUB_SIGNATURE'] != '123456')
     {
-      Log::info($_SERVER['HTTP_X_HUB_SIGNATURE']);
+      $signature = $_SERVER['HTTP_X_HUB_SIGNATURE'];
+      Log::info($signature);
+      # sha1=3c73064d4c73156f9d212a3bdf8c343524538806
       return response()->json(['penis' => '8==D']);
     }
 
