@@ -70,7 +70,7 @@
                 <div class="title m-b-md">
                     eyp webhook
                     <div>
-                      <form action="/action_page.php" method="post">
+                      <form action="/github/webhook" method="post">
                         <input type="submit" value="TEST">
                       </form>
                     </div>
