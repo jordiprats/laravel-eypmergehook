@@ -20,12 +20,13 @@ class GitHubValidator
   {
     $json_input=$request->getContent();
 
-    # This hash signature is passed along with each request in the headers as X-Hub-Signature
     if(!$this->isPOST($request))
     {
       return response()->json(['penis' => '8=D']);
     }
 
+    # This hash signature is passed along with each request
+    # in the headers as X-Hub-Signature
     if(!isset($_SERVER['HTTP_X_HUB_SIGNATURE']))
     {
       // return $next($request);
