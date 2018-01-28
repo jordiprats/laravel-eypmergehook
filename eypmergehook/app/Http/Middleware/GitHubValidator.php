@@ -46,7 +46,7 @@ class GitHubValidator
     // Log::info("json: ".$json_input);
     // Log::info("str sha1: ".config('githubsecret.secret').$json_input);
 
-    $sig_check = 'sha1=' . hash_hmac('sha1', $request->getContent(), Config::get('githubsecret.secret'));
+    $sig_check = 'sha1=' . hash_hmac('sha1', $request->getContent(), config('githubsecret.secret'));
     Log::info($sig_check);
 
     if($req_signature != $signature)
