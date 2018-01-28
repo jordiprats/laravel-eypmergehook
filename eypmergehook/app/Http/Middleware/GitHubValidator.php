@@ -18,12 +18,7 @@ class GitHubValidator
    */
   public function handle($request, Closure $next)
   {
-    Log::info('input');
-    Log::info(print_r($request->all(), true));
-    Log::info('input');
-    Log::info('content');
-    Log::info($request->getContent());
-    Log::info('content');
+    $json_input=$request->getContent();
 
     # This hash signature is passed along with each request in the headers as X-Hub-Signature
     if(!$this->isPOST($request))
@@ -34,7 +29,7 @@ class GitHubValidator
     if(!isset($_SERVER['HTTP_X_HUB_SIGNATURE']))
     {
       // return $next($request);
-      return response()->json(['penis' => '8==D']);
+      return response()->json(['penis' => sha1('8==D')]);
     }
 
     # sha1=3c73064d4c73156f9d212a3bdf8c343524538806
