@@ -40,11 +40,11 @@ class GitHubValidator
     # signature = 'sha1=' + sha1(ENV['SECRET_TOKEN']+payload_body)
     Log::info($signature);
 
-    $signature = sha1(config('githubsecret.secret')+$json_input+'\n');
+    $signature = sha1(config('githubsecret.secret')+$json_input);
     Log::info($signature);
-    Log::info($json_input);
+    Log::info(config('githubsecret.secret')+$json_input);
 
-    if($signature != '123456')
+    if($req_signature != $signature)
     {
       // return response()->json(['penis' => '8===D']);
       return $next($request);
