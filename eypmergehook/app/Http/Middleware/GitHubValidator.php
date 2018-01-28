@@ -29,12 +29,18 @@ class GitHubValidator
     if(!isset($_SERVER['HTTP_X_HUB_SIGNATURE']))
     {
       // return $next($request);
-      return response()->json(['penis' => sha1('8==D')]);
+      return response()->json(['penis' => '8==D']);
     }
 
+    $req_signature = $_SERVER['HTTP_X_HUB_SIGNATURE'];
+    Log::info($req_signature);
     # sha1=3c73064d4c73156f9d212a3bdf8c343524538806
-    # signature = 'sha1=' + OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new('sha1'), ENV['SECRET_TOKEN'], payload_body)
-    $signature = $_SERVER['HTTP_X_HUB_SIGNATURE'];
+
+    $signature = sha1(config(githubsecret));
+    # signature = 'sha1=' + sha1(ENV['SECRET_TOKEN']+payload_body)
+    Log::info($signature);
+
+    $signature = sha1(config(githubsecret)+$json_input);
     Log::info($signature);
 
     if($signature != '123456')
