@@ -1,4 +1,5 @@
 <?php
+// https://developer.github.com/webhooks/securing/
 
 namespace App\Http\Middleware;
 
