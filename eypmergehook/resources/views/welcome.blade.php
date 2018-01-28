@@ -70,10 +70,10 @@
                 <div class="title m-b-md">
                     eyp webhook
                     <div>
-                      <form action="/github/webhook" method="post">
+                      <!-- <form action="/github/webhook" method="post">
                         <input type="textarea" value="textarea">
                         <input type="submit" value="TEST">
-                      </form>
+                      </form> -->
                     </div>
                 </div>
             </div>
