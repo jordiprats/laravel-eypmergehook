@@ -42,7 +42,7 @@ class GitHubValidator
 
     $signature = "sha1=".sha1(config('githubsecret.secret').$json_input);
     Log::info($signature);
-    Log::info("json: ".$json_input);
+    #Log::info("json: ".$json_input);
     Log::info("str sha1: ".config('githubsecret.secret').$json_input);
 
     if($req_signature != $signature)
