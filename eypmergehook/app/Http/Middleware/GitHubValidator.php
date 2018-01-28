@@ -21,6 +21,10 @@ class GitHubValidator
     Log::info('input');
     Log::info(print_r($request->all(), true));
     Log::info('input');
+    Log::info('content');
+    Log::info($request->getContent());
+    Log::info('content');
+
     # This hash signature is passed along with each request in the headers as X-Hub-Signature
     if(!$this->isPOST($request))
     {
