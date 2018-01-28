@@ -12,14 +12,16 @@ class Tagger implements ShouldQueue
 {
   use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+  protected string $repo=NULL;
+
   /**
    * Create a new job instance.
    *
    * @return void
    */
-  public function __construct()
+  public function __construct(string $repo)
   {
-    //
+    $this->repo = $repo;
   }
 
   /**
@@ -29,6 +31,9 @@ class Tagger implements ShouldQueue
    */
   public function handle()
   {
-    
+    if($repo!=NULL) throw new Exception ('repo is NULL');
+
+    $cmd="docker run -d -v /root/.ssh:/root/.ssh -t eyp/eyptagger /bin/bash /usr/bin/updatetags.sh ".$this->repo;
+    echo "tagging /".$cmd."/: ".exec($cmd)."\n";
   }
 }

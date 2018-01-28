@@ -22,7 +22,6 @@ class GitHubValidator
 
     if(!$this->isPOST($request))
     {
-      // return response()->json();
       return response(['penis' => '8=D'], 401);
     }
 
@@ -30,8 +29,6 @@ class GitHubValidator
     # in the headers as X-Hub-Signature
     if(!isset($_SERVER['HTTP_X_HUB_SIGNATURE']))
     {
-      // return $next($request);
-      // return response()->json();
       return response(['penis' => '8==D'], 401);
     }
 
