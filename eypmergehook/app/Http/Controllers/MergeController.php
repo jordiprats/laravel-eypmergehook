@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
+use App\Jobs\Tagger;
 
 class MergeController extends Controller
 {
@@ -14,8 +15,8 @@ class MergeController extends Controller
 
   public function mergeHook(Request $request)
   {
-    $json_input=$request->getContent();
-    Log::info($json_input);
+    $repo=$request->input('repository.name');
+    Log::info($repo);
     try
     {
       Log::info("job Tagger");
