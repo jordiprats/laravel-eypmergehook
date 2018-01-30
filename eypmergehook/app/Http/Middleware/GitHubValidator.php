@@ -23,6 +23,7 @@ class GitHubValidator
 
     if(!$this->isPOST($request))
     {
+      Log::info("no es POST");
       return response(['penis' => '8=D'], 401);
     }
 
@@ -30,18 +31,19 @@ class GitHubValidator
     # in the headers as X-Hub-Signature
     if(!isset($_SERVER['HTTP_X_HUB_SIGNATURE']))
     {
+      Log::info("header no present");
       return response(['penis' => '8==D'], 401);
     }
 
     $req_signature = $_SERVER['HTTP_X_HUB_SIGNATURE'];
-    // Log::info($req_signature);
+    Log::info($req_signature);
 
     $signature = 'sha1=' . hash_hmac('sha1', $request->getContent(), config('githubsecret.secret'));
-    // Log::info($signature);
+    Log::info($signature);
 
     if($req_signature != $signature)
     {
-      // Log::info("INVALID SIGNATURE");
+      Log::info("INVALID SIGNATURE");
       return response(['penis' => '8===D'], 401);
     }
 
