@@ -14,10 +14,12 @@ class MergeController extends Controller
 
   public function mergeHook(Request $request)
   {
+    $json_input=$request->getContent();
+    Log::info($json_input);
     try
     {
-      // try code
-      dispatch(new Tagger($platform));
+      Log::info("job Tagger");
+      dispatch(new Tagger($repo));
     }
     catch(\Exception $e){
     }
