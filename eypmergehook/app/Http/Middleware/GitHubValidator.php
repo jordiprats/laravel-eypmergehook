@@ -21,6 +21,12 @@ class GitHubValidator
   {
     $json_input=$request->getContent();
 
+    if(strlen(config('githubsecret.secret'))<=0)
+    {
+      Log::info("no esta configurat el githubsecret");
+      return response(['penis' => '8D'], 401);
+    }
+
     if(!$this->isPOST($request))
     {
       Log::info("no es POST");
@@ -36,14 +42,11 @@ class GitHubValidator
     }
 
     $req_signature = $_SERVER['HTTP_X_HUB_SIGNATURE'];
-    Log::info($req_signature);
-
     $signature = 'sha1=' . hash_hmac('sha1', $request->getContent(), config('githubsecret.secret'));
-    Log::info($signature);
 
     if($req_signature != $signature)
     {
-      Log::info("INVALID SIGNATURE");
+      Log::info("INVALID SIGNATURE: ".$req_signature." vs ".$$signature);
       return response(['penis' => '8===D'], 401);
     }
 
