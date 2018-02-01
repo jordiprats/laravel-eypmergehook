@@ -12,6 +12,7 @@ class Tagger implements ShouldQueue
 {
   use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+  protected $username;
   protected $repo;
 
   /**
@@ -19,9 +20,10 @@ class Tagger implements ShouldQueue
    *
    * @return void
    */
-  public function __construct(string $repo)
+  public function __construct(string $username, string $repo)
   {
     $this->repo = $repo;
+    $this->username = $username;
   }
 
   /**
@@ -34,7 +36,7 @@ class Tagger implements ShouldQueue
     if($repo!=NULL) throw new Exception ('repo is NULL');
     if(strlen($repo)<=0) throw new Exception ('repo is an empty string');
 
-    $cmd="docker run -d -v /root/.ssh:/root/.ssh -t eyp/eyptagger /bin/bash /usr/bin/updatetags.sh ".$this->repo;
+    $cmd="docker run -d -e GITHUB_USERNAME=".$username." -v /root/.ssh:/root/.ssh -t eyp/eyptagger /bin/bash /usr/bin/updatetags.sh ".$this->repo;
     echo "tagging /".$cmd."/: ".exec($cmd)."\n";
   }
 }

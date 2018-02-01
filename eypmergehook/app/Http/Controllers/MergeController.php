@@ -15,21 +15,22 @@ class MergeController extends Controller
 
   public function mergeHook(Request $request)
   {
-    Log::info($request->getContent());
+    // Log::info($request->getContent());
 
     $repo=$request->input('repository.name');
     $fork=$request->input('repository.fork');
 
     $repo_name=explode("/", $request->input('repository.full_name'));
-    Log::info($repo_name[0]);
-    Log::info($repo);
+    $username=$repo_name[0];
+    // Log::info($username);
+    // Log::info($repo);
 
     if(!$fork)
     {
       try
       {
         Log::info("job Tagger");
-        dispatch(new Tagger($repo));
+        dispatch(new Tagger($username,$repo));
       }
       catch(\Exception $e){
       }
