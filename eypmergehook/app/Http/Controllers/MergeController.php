@@ -19,18 +19,20 @@ class MergeController extends Controller
 
     $repo=$request->input('repository.name');
     $fork=$request->input('repository.fork');
-    $full_name=$request->input('repository.full_name');
 
+    $repo_name=explode("/", $request->input('repository.full_name'));
+    Log::info($repo_name[0]);
     Log::info($repo);
-    Log::info(gettype($fork)." ".$fork);
-    Log::info($full_name);
-    
-    try
+
+    if(!$fork)
     {
-      Log::info("job Tagger");
-      dispatch(new Tagger($repo));
-    }
-    catch(\Exception $e){
+      try
+      {
+        Log::info("job Tagger");
+        dispatch(new Tagger($repo));
+      }
+      catch(\Exception $e){
+      }
     }
 
     return [ 'penis'=> '8====D' ];
