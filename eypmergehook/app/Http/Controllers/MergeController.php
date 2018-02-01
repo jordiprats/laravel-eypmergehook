@@ -15,6 +15,8 @@ class MergeController extends Controller
 
   public function mergeHook(Request $request)
   {
+    Log::info($request->getContent());
+
     $repo=$request->input('repository.name');
     Log::info($repo);
     try
