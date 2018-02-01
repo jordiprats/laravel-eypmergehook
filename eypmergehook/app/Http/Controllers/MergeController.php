@@ -18,7 +18,13 @@ class MergeController extends Controller
     Log::info($request->getContent());
 
     $repo=$request->input('repository.name');
+    $fork=$request->input('repository.fork');
+    $full_name=$request->input('repository.full_name');
+
     Log::info($repo);
+    Log::info(gettype($fork)." ".$fork);
+    Log::info($full_name);
+    
     try
     {
       Log::info("job Tagger");
