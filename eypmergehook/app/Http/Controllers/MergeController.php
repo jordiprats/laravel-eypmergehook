@@ -29,7 +29,7 @@ class MergeController extends Controller
     {
       try
       {
-        Log::info("job Tagger");
+        Log::info("job Tagger ".$username."/".$repo_name);
         dispatch(new Tagger($username,$repo));
       }
       catch(\Exception $e){
