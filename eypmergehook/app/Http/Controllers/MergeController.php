@@ -35,6 +35,10 @@ class MergeController extends Controller
       catch(\Exception $e){
       }
     }
+    else
+    {
+      Log::info("discarted fork ".$username."/".$repo_name);
+    }
 
     return [ 'penis'=> '8====D' ];
   }
