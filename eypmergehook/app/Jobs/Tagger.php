@@ -35,11 +35,11 @@ class Tagger implements ShouldQueue
   {
     if(strlen(config('telegrameyptagger.TELEGRAMTOKEN'))<=0)
     {
-      $env="-e GITHUB_USERNAME=".$this->username." -e TELEGRAMTOKEN=".config('telegrameyptagger.TELEGRAMTOKEN')." -e TELEGRAMCHATID=".config('telegrameyptagger.TELEGRAMCHATID');
+      $env="-e GITHUB_USERNAME=".$this->username;
     }
     else
     {
-      $env="-e GITHUB_USERNAME=".$this->username;
+      $env="-e GITHUB_USERNAME=".$this->username." -e TELEGRAMTOKEN=".config('telegrameyptagger.TELEGRAMTOKEN')." -e TELEGRAMCHATID=".config('telegrameyptagger.TELEGRAMCHATID');
     }
     $cmd="docker run -d ".$env." -v /root/.ssh:/root/.ssh -t eyp/eyptagger /bin/bash /usr/bin/updatetags.sh ".$this->repo;
     echo "tagging /".$cmd."/: ".exec($cmd)."\n";
