@@ -40,7 +40,7 @@ class MergeController extends Controller
     }
     else
     {
-      Log::info("discarted fork ".$username."/".$repo_name);
+      Log::info("discarted fork ".$username."/".$repo);
     }
 
     return [ 'penis'=> '8====D' ];
