@@ -35,6 +35,7 @@ class MergeController extends Controller
       catch(\Exception $e)
       {
         Log::info("-_(._.)_-");
+        Log::info($e);
       }
     }
     else
