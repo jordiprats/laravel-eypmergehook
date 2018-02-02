@@ -33,10 +33,10 @@ class Tagger implements ShouldQueue
    */
   public function handle()
   {
-    if($repo!=NULL) throw new Exception ('repo is NULL');
-    if(strlen($repo)<=0) throw new Exception ('repo is an empty string');
+    if($this->repo!=NULL) throw new Exception ('repo is NULL');
+    if(strlen($this->repo)<=0) throw new Exception ('repo is an empty string');
 
-    $cmd="docker run -d -e GITHUB_USERNAME=".$username." -v /root/.ssh:/root/.ssh -t eyp/eyptagger /bin/bash /usr/bin/updatetags.sh ".$this->repo;
+    $cmd="docker run -d -e GITHUB_USERNAME=".$this->username." -v /root/.ssh:/root/.ssh -t eyp/eyptagger /bin/bash /usr/bin/updatetags.sh ".$this->repo;
     echo "tagging /".$cmd."/: ".exec($cmd)."\n";
   }
 }
