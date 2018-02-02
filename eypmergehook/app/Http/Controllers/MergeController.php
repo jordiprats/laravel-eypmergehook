@@ -20,8 +20,8 @@ class MergeController extends Controller
     $repo=$request->input('repository.name');
     $fork=$request->input('repository.fork');
 
-    $repo_name=explode("/", $request->input('repository.full_name'));
-    $username=$repo_name[0];
+    $username_repo=explode("/", $request->input('repository.full_name'));
+    $username=$username_repo[0];
     // Log::info($username);
     // Log::info($repo);
 
@@ -29,7 +29,7 @@ class MergeController extends Controller
     {
       try
       {
-        Log::info("job Tagger for ".$username."/".$repo_name);
+        Log::info("job Tagger for ".$username."/".$repo);
         dispatch(new Tagger($username,$repo));
       }
       catch(\Exception $e)
