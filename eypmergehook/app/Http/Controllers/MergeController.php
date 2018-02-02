@@ -15,7 +15,7 @@ class MergeController extends Controller
 
   public function mergeHook(Request $request)
   {
-    // Log::info($request->getContent());
+    Log::info("mergehook");
 
     $repo=$request->input('repository.name');
     $fork=$request->input('repository.fork');
@@ -32,7 +32,9 @@ class MergeController extends Controller
         Log::info("job Tagger for ".$username."/".$repo_name);
         dispatch(new Tagger($username,$repo));
       }
-      catch(\Exception $e){
+      catch(\Exception $e)
+      {
+        Log::info("-_(._.)_-");
       }
     }
     else
