@@ -50,6 +50,7 @@ class GitHubValidator
       return response(['penis' => '8===D'], 401);
     }
 
+    Log::info("github valid");
     return $next($request);
   }
 
