@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\User;
+use App\LinkedSocialAccount;
 
 use Socialite;
 
@@ -18,7 +19,7 @@ class SocialAccountController extends Controller
    */
   public function redirectToProvider($provider)
   {
-    return \Socialite::driver($provider)->redirect();
+    return \Socialite::driver($provider)->scopes(['read:user', 'public_repo'])->redirect();
   }
 
   /**
@@ -37,6 +38,8 @@ class SocialAccountController extends Controller
     {
       # usuari ja existent (mail ja esta a la DB)
       auth()->login($user, true);
+      // TODO: millorar
+      $lsa = LinkedSocialAccount::where(['user_id' => $user->id])->first();
       return redirect()->action('HomeController@index');
     }
     else
@@ -47,6 +50,25 @@ class SocialAccountController extends Controller
           'name'      => $userSocial->getName(),
           'nickname'  => $userSocial->getNickname(),
       ]);
+
+      // // OAuth Two Providers
+      // $token = $user->token;
+      // $refreshToken = $user->refreshToken; // not always provided
+      // $expiresIn = $user->expiresIn;
+      //
+      // // OAuth One Providers
+      // $token = $user->token;
+      // $tokenSecret = $user->tokenSecret;
+
+      // TODO: gestio OAuth One
+      LinkedSocialAccount::create([
+        'user_id' => $user->id,
+        'provider' => $provider,
+        'token' => $userSocial->token,
+        'refresh_token' => $userSocial->refreshToken,
+        'expires_in' => $userSocial->expiresIn,
+      ]);
+
       auth()->login($user, true);
       return redirect()->action('HomeController@index');
     }

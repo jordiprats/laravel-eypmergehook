@@ -28,4 +28,8 @@ class User extends Authenticatable
     'password', 'remember_token'
   ];
 
+  public function accounts(){
+      return $this->hasMany('App\LinkedSocialAccount');
+  }
+
 }
