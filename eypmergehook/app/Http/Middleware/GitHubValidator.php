@@ -53,6 +53,12 @@ class GitHubValidator
     }
 
     Log::info("github valid");
+
+    # X-GitHub-Event
+    if(!isset($_SERVER['HTTP_X_GITHUB_EVENT']))
+    {
+      Log::info("github event: ".$_SERVER['HTTP_X_GITHUB_EVENT']);
+    }
     return $next($request);
   }
 
