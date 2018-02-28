@@ -21,7 +21,7 @@ class GitHubValidator
   {
     $json_input=$request->getContent();
 
-    // Log::info($json_input);
+    Log::info($json_input);
 
     if(strlen(config('githubsecret.secret'))<=0)
     {
