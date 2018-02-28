@@ -17,31 +17,44 @@ class MergeController extends Controller
   {
     Log::info("mergehook");
 
+    // github
     $repo=$request->input('repository.name');
     $fork=$request->input('repository.fork');
-
     $username_repo=explode("/", $request->input('repository.full_name'));
     $username=$username_repo[0];
-    // Log::info($username);
-    // Log::info($repo);
 
-    if(!$fork)
+    // bitbucket
+    $project_key=$request->input('repository.project.key');
+
+    // heuristics tipus repo
+
+    if($project_key=="")
     {
-      try
+      if(!$fork)
       {
-        Log::info("job Tagger for ".$username."/".$repo);
-        dispatch(new Tagger($username, $repo));
+        try
+        {
+          Log::info("job Tagger for ".$username."/".$repo);
+          dispatch(new Tagger($username, $repo));
+        }
+        catch(\Exception $e)
+        {
+          Log::info("-_(._.)_-");
+          Log::info($e);
+        }
       }
-      catch(\Exception $e)
+      else
       {
-        Log::info("-_(._.)_-");
-        Log::info($e);
+        Log::info("discarted fork ".$username."/".$repo);
       }
     }
     else
     {
-      Log::info("discarted fork ".$username."/".$repo);
+      Log::info("discarting bitbucket repo: ".$project_key."/".$repo);
     }
+
+    // Log::info($username);
+    // Log::info($repo);
 
     return [ 'penis'=> '8====D' ];
   }
