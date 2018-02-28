@@ -59,6 +59,9 @@ class GitHubValidator
     {
       Log::info("github event: ".$_SERVER['HTTP_X_GITHUB_EVENT']);
     }
+
+    # bitbucket X-Event-Key: repo:refs_changed
+
     return $next($request);
   }
 
