@@ -56,6 +56,6 @@ class MergeController extends Controller
     // Log::info($username);
     // Log::info($repo);
 
-    return [ 'penis'=> '8====D' ];
+    return [ 'penis'=> '8====D~~' ];
   }
 }
