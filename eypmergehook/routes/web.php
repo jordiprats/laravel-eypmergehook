@@ -17,12 +17,12 @@ Route::post('/github/webhook', array(
                                       'middleware' => ['githubvalidator']
                                     ))->name('mergehook');
 
-Route::get('/bitbucket/webhook', 'MergeController@status')->name('mergehook.status');
+Route::get('/bitbucket/webhook', 'MergeController@status')->name('mergehook.status.bitbucket');
 #Route::post('/github/webhook', 'MergeController@mergeHook')->name('mergehook');
 Route::post('/bitbucket/webhook', array(
                                       'uses' => 'MergeController@mergeHook',
                                       'middleware' => ['bitbucketvalidator']
-                                    ))->name('mergehook');
+                                    ))->name('mergehook.bitbucket');
 
 
 Route::get('/', function () {
