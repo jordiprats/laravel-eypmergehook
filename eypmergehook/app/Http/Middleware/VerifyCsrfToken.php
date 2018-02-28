@@ -11,7 +11,7 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except = [
         '/github/webhook',
-        '/github/webhook/*'
+        '/github/webhook/*',
         '/bitbucket/webhook',
         '/bitbucket/webhook/*'
     ];
