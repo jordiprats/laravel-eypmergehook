@@ -41,7 +41,7 @@ class Tagger implements ShouldQueue
     {
       $env="-e GITHUB_USERNAME=".$this->username." -e TELEGRAMTOKEN=".config('telegrameyptagger.TELEGRAMTOKEN')." -e TELEGRAMCHATID=".config('telegrameyptagger.TELEGRAMCHATID');
     }
-    $cmd="docker run -d ".$env." -v /root/.ssh:/root/.ssh -t eyp/eyptagger /bin/bash /usr/bin/updatetags.sh ".$this->repo;
+    $cmd="docker run -d -e ENABLE_DEBUG=1 ".$env." -v /root/.ssh:/root/.ssh -t eyp/eyptagger /bin/bash /usr/bin/updatetags.sh ".$this->repo;
     echo "tagging /".$cmd."/: ".exec($cmd)."\n";
   }
 }
