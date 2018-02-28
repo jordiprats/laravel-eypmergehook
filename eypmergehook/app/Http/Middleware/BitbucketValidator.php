@@ -46,7 +46,7 @@ class BitbucketValidator
     // The default for this algorithm is HMACSha256. The header X-Hub-Signature is defined and contains the HMAC.
 
     $req_signature = $_SERVER['HTTP_X_HUB_SIGNATURE'];
-    $signature = 'sha1=' . hash_hmac('sha256', $request->getContent(), config('githubsecret.secret'));
+    $signature = 'sha256=' . hash_hmac('sha256', $request->getContent(), config('githubsecret.secret'));
 
     if($req_signature != $signature)
     {
