@@ -48,7 +48,7 @@ class GitHubValidator
 
     if($req_signature != $signature)
     {
-      Log::info("INVALID SIGNATURE: ".$req_signature." vs ".$$signature);
+      Log::info("INVALID SIGNATURE: ".$req_signature." vs ".$signature);
       return response(['penis' => '8===D'], 401);
     }
 
