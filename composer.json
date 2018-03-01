@@ -1,0 +1,6 @@
+{
+    "require": {
+        "graham-campbell/github": "^6.2",
+        "php-http/guzzle6-adapter": "^1.1"
+    }
+}
