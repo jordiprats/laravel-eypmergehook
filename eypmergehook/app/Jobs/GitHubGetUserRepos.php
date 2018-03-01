@@ -34,7 +34,7 @@ class GitHubGetUserRepos implements ShouldQueue
    */
   public function handle()
   {
-    $user = User::where(['nickname' => $username])->first();
+    $user = User::where(['nickname' => $this->username])->first();
 
     if($user)
     {
