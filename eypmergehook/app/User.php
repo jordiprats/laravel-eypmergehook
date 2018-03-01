@@ -42,4 +42,9 @@ class User extends Authenticatable
     return $this->hasMany(Organization::class);
   }
 
+  public function linkedsocialaccounts()
+  {
+    return $this->hasMany(LinkedSocialAccount::class);
+  }
+
 }
