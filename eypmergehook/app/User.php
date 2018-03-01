@@ -32,4 +32,14 @@ class User extends Authenticatable
       return $this->hasMany('App\LinkedSocialAccount');
   }
 
+  public function repos()
+  {
+    return $this->hasMany(Repo::class);
+  }
+
+  public function organizations()
+  {
+    return $this->hasMany(Organization::class);
+  }
+
 }
