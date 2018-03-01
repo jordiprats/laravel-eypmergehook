@@ -40,6 +40,12 @@ class SocialAccountController extends Controller
       auth()->login($user, true);
       // TODO: millorar
       $lsa = LinkedSocialAccount::where(['user_id' => $user->id])->first();
+
+      if($provider=="github")
+      {
+        dispatch(new GitHubGetUserRepos($user->nickname));
+      }
+
       return redirect()->action('HomeController@index');
     }
     else
@@ -70,6 +76,12 @@ class SocialAccountController extends Controller
       ]);
 
       auth()->login($user, true);
+
+      if($provider=="github")
+      {
+        dispatch(new GitHubGetUserRepos($user->nickname));
+      }
+
       return redirect()->action('HomeController@index');
     }
   }
