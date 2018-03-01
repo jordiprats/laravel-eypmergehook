@@ -8,6 +8,8 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use GrahamCampbell\GitHub\Facades\GitHub;
+use App\User;
+use App\LinkedSocialAccount;
 
 class GitHubGetUserRepos implements ShouldQueue
 {
