@@ -2,14 +2,17 @@
 
 namespace App\Jobs;
 
+use GitHub;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use GrahamCampbell\GitHub\Facades\GitHub;
+use GrahamCampbell\GitHub\Authenticators\AuthenticatorFactory;
+use GrahamCampbell\GitHub\GitHubFactory;
 use App\User;
 use App\LinkedSocialAccount;
+
 
 class GitHubGetUserRepos implements ShouldQueue
 {
@@ -41,7 +44,12 @@ class GitHubGetUserRepos implements ShouldQueue
       $github_account=LinkedSocialAccount::where(['user_id' => $user->id, 'provider' => 'github'])->first();
       if($github_account)
       {
-        $repos = GitHub::users()->repositories($user->nickname);
+        echo "token: ".$github_account->token."\n";
+        //app(GitHubFactory::class)->make(['token' => $github_account->token, 'method' => 'token', 'cache' => true]);
+        $github = app('github.factory')->make(['token' => $github_account->token, 'method' => 'token']);
+        //$repos = GitHub::connection()->users()->repositories($user->nickname);
+
+        $repos = $gh->users()->repositories($user->nickname);
 
         print_r($repos);
         # $repos = $client->api('user')->repositories('KnpLabs');
