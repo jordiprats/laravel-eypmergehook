@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\User;
 use App\LinkedSocialAccount;
+use App\Jobs\GitHubGetUserRepos;
 
 use Socialite;
 
