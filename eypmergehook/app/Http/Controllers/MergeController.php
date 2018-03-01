@@ -27,7 +27,6 @@ class MergeController extends Controller
     $project_key=$request->input('repository.project.key');
 
     // heuristics tipus repo
-
     if($project_key=="")
     {
       if(!$fork)

@@ -54,11 +54,14 @@ class GitHubValidator
 
     Log::info("github valid");
 
-    # X-GitHub-Event
+    # X-GitHub-Event: push
     if(!isset($_SERVER['HTTP_X_GITHUB_EVENT']))
     {
       Log::info("github event: ".$_SERVER['HTTP_X_GITHUB_EVENT']);
     }
+
+    # bitbucket X-Event-Key: repo:refs_changed
+
     return $next($request);
   }
 
