@@ -55,7 +55,6 @@ class GitHubGetUserRepos implements ShouldQueue
 
         $github_paginator  = new ResultPager($github);
 
-
         foreach ($github_paginator->fetchAll($github->users(), 'repositories', ['all']) as $repo)
         {
           echo $repo[full_name]."\n";
