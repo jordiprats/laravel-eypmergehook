@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use GitHub;
+use GitHUb\ResultPager;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
@@ -49,9 +50,16 @@ class GitHubGetUserRepos implements ShouldQueue
         $github = app('github.factory')->make(['token' => $github_account->token, 'method' => 'token']);
         //$repos = GitHub::connection()->users()->repositories($user->nickname);
 
-        $repos = $github->users()->repositories($user->nickname);
+        // $repos = $github->users()->repositories($user->nickname);
+        // echo count($repos);
 
-        print_r($repos);
+        $github_paginator  = new ResultPager( $github );
+
+
+        foreach ($github_paginator->fetchAll($github->users(), 'repositories', ['all']) as $repo)
+        {
+          echo $repo[full_name]."\n";
+        }
         # $repos = $client->api('user')->repositories('KnpLabs');
         # $issue = $client->api('issue')->show('KnpLabs', 'php-github-api', 1);
         // GitHub::connection('main')->issues()->show('GrahamCampbell', 'Laravel-GitHub', 2);
