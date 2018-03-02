@@ -52,7 +52,7 @@ class GitHubGetUserRepos implements ShouldQueue
         // $repos = $github->users()->repositories($user->nickname);
         // echo count($repos);
 
-        $github_paginator  = new \GitHub\ResultPager($github);
+        $github_paginator  = new ResultPager($github);
 
 
         foreach ($github_paginator->fetchAll($github->users(), 'repositories', ['all']) as $repo)
