@@ -8,9 +8,11 @@
         "php": ">=7.0.0",
         "doctrine/dbal": "^2.5",
         "fideloper/proxy": "~3.3",
+        "graham-campbell/github": "^6.2",
         "laravel/framework": "5.5.*",
         "laravel/socialite": "^3.0",
         "laravel/tinker": "~1.0",
+        "php-http/guzzle6-adapter": "^1.1",
         "predis/predis": "^1.1"
     },
     "require-dev": {

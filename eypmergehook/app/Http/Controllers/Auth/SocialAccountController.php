@@ -20,7 +20,7 @@ class SocialAccountController extends Controller
    */
   public function redirectToProvider($provider)
   {
-    return \Socialite::driver($provider)->scopes(['read:user', 'public_repo'])->redirect();
+    return \Socialite::driver($provider)->scopes(['read:user', 'repo', 'admin:repo_hook' ])->redirect();
   }
 
   /**
