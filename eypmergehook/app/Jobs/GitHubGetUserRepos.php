@@ -57,7 +57,7 @@ class GitHubGetUserRepos implements ShouldQueue
 
         foreach ($github_paginator->fetchAll($github->users(), 'repositories', [$user->nickname]) as $repo)
         {
-          echo $repo[full_name]."\n";
+          echo $repo['full_name']."\n";
         }
         # $repos = $client->api('user')->repositories('KnpLabs');
         # $issue = $client->api('issue')->show('KnpLabs', 'php-github-api', 1);
