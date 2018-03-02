@@ -442,7 +442,11 @@
         },
         {
             "name": "illuminate/contracts",
+<<<<<<< HEAD
             "version": "v5.5.35",
+=======
+            "version": "v5.5.36",
+>>>>>>> 60c779ee474c19c2e9b1ff8b3638e1a7f47d85f0
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/contracts.git",
@@ -486,7 +490,11 @@
         },
         {
             "name": "illuminate/support",
+<<<<<<< HEAD
             "version": "v5.5.35",
+=======
+            "version": "v5.5.36",
+>>>>>>> 60c779ee474c19c2e9b1ff8b3638e1a7f47d85f0
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/support.git",
