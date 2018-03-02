@@ -49,7 +49,7 @@ class GitHubGetUserRepos implements ShouldQueue
         $github = app('github.factory')->make(['token' => $github_account->token, 'method' => 'token']);
         //$repos = GitHub::connection()->users()->repositories($user->nickname);
 
-        $repos = $gh->users()->repositories($user->nickname);
+        $repos = $github->users()->repositories($user->nickname);
 
         print_r($repos);
         # $repos = $client->api('user')->repositories('KnpLabs');
