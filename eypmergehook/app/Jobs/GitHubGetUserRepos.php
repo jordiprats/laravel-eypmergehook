@@ -44,7 +44,7 @@ class GitHubGetUserRepos implements ShouldQueue
       $github_account=LinkedSocialAccount::where(['user_id' => $user->id, 'provider' => 'github'])->first();
       if($github_account)
       {
-        echo "token: ".$github_account->token."\n";
+        // echo "token: ".$github_account->token."\n";
         //app(GitHubFactory::class)->make(['token' => $github_account->token, 'method' => 'token', 'cache' => true]);
         $github = app('github.factory')->make(['token' => $github_account->token, 'method' => 'token']);
         //$repos = GitHub::connection()->users()->repositories($user->nickname);
