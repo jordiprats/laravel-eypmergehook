@@ -2,28 +2,18 @@
 
 namespace App\Jobs;
 
-<<<<<<< HEAD
-=======
 use GitHub;
->>>>>>> 60c779ee474c19c2e9b1ff8b3638e1a7f47d85f0
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-<<<<<<< HEAD
-use GrahamCampbell\GitHub\Facades\GitHub;
-use App\User;
-use App\LinkedSocialAccount;
-
-=======
 use GrahamCampbell\GitHub\Authenticators\AuthenticatorFactory;
 use GrahamCampbell\GitHub\GitHubFactory;
 use App\User;
 use App\LinkedSocialAccount;
 
 
->>>>>>> 60c779ee474c19c2e9b1ff8b3638e1a7f47d85f0
 class GitHubGetUserRepos implements ShouldQueue
 {
   use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
