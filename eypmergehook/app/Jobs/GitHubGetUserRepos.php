@@ -3,7 +3,6 @@
 namespace App\Jobs;
 
 use GitHub;
-use GitHub\ResultPager;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
