@@ -16,9 +16,13 @@ class CreateReposTable extends Migration
     Schema::create('repos', function (Blueprint $table) {
       $table->increments('id');
       $table->string('repo_name');
+      $table->string('full_name')->nullable();
+      $table->string('project_name')->nullable();
+      $table->boolean('fork');
+      $table->boolean('private');
+      $table->string('clone_url');
       $table->integer('user_id')->nullable()->references('id')->on('users');
       $table->integer('organization_id')->nullable()->references('id')->on('organizations');
-      $table->boolean('fork');
       $table->timestamps();
     });
   }
