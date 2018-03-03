@@ -13,6 +13,7 @@
         "laravel/socialite": "^3.0",
         "laravel/tinker": "~1.0",
         "php-http/guzzle6-adapter": "^1.1",
+        "laravelcollective/html": "^5.4.0",
         "predis/predis": "^1.1"
     },
     "require-dev": {

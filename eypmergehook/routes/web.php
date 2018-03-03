@@ -11,14 +11,12 @@
 |
 */
 Route::get('/github/webhook', 'MergeController@status')->name('mergehook.status');
-#Route::post('/github/webhook', 'MergeController@mergeHook')->name('mergehook');
 Route::post('/github/webhook', array(
                                       'uses' => 'MergeController@mergeHook',
                                       'middleware' => ['githubvalidator']
                                     ))->name('mergehook');
 
 Route::get('/bitbucket/webhook', 'MergeController@status')->name('mergehook.status.bitbucket');
-#Route::post('/github/webhook', 'MergeController@mergeHook')->name('mergehook');
 Route::post('/bitbucket/webhook', array(
                                       'uses' => 'MergeController@mergeHook',
                                       'middleware' => ['bitbucketvalidator']
@@ -30,6 +28,11 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+
+Route::get('/settings/profile', 'UserController@edit')->name('user.edit');
+Route::post('/settings/profile', 'UserController@edit')->name('user.edit');
+Route::put('/settings/profile.update', 'UserController@update')->name('user.update');
+Route::post('/settings/profile.update', 'UserController@update')->name('user.update');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
