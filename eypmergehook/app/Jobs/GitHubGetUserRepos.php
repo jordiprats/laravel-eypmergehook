@@ -70,11 +70,13 @@ class GitHubGetUserRepos implements ShouldQueue
           {
             if($github_repo['owner']['login']==$user->nickname)
             {
+              $is_private=$github_repo['private']?true:false;
+
               echo "===\n";
               echo "name: ".$github_repo['name']."\n";
               echo "full_name: ".$github_repo['full_name']."\n";
-              echo "fork: ".$github_repo['fork']."\n";
-              echo "private: ".$github_repo['private']."\n";
+              echo "fork: ".$github_repo['fork_url']."\n";
+              echo "private: ".$is_private."\n";
               echo "clone_url: ".$github_repo['clone_url']."\n";
               echo "user_id: ".$user->id."\n";
 
@@ -87,9 +89,6 @@ class GitHubGetUserRepos implements ShouldQueue
               //     'user_id'   => $user->id,
               // ]);
             }
-          }
-          else {
-            print_r($github_repo);
           }
         }
       }
