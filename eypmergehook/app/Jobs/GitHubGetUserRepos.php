@@ -67,11 +67,9 @@ class GitHubGetUserRepos implements ShouldQueue
                 // print_r($github_repo);
                 #$repo = $client->api('repo')->showById(123456)
                 $github_repo_extended=$github->repos()->showById($github_repo['id']);
-                print_r($github_repo_extended);
+                // print_r($github_repo_extended);
 
                 $fork            =$github_repo_extended['parent']['clone_url'];
-                $parent_github_id=$github_repo_extended['parent']['id'];
-                echo ">> parent_id extended: ".$parent_github_id;
               }
               else
               {
@@ -89,7 +87,6 @@ class GitHubGetUserRepos implements ShouldQueue
               echo "clone_url: ".$github_repo['clone_url']."\n";
               echo "user_id: ".$user->id."\n";
               echo "github_id: ".$github_repo['id']."\n";
-              echo "parent_github_id: ".$parent_github_id."\n";
 
               $repo = Repo::create([
                   'repo_name'        => $github_repo['name'],
@@ -99,7 +96,6 @@ class GitHubGetUserRepos implements ShouldQueue
                   'clone_url'        => $github_repo['clone_url'],
                   'user_id'          => $user->id,
                   'github_id'        => $github_repo['id'],
-                  'parent_github_id' => $parent_github_id,
               ]);
             }
             else
