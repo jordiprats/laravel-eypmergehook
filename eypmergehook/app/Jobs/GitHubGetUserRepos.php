@@ -54,8 +54,9 @@ class GitHubGetUserRepos implements ShouldQueue
         {
           // $memberships = $client->user()->memberships()->all();
           // $membership = $client->user()->memberships()->organization('KnpLabs');
-          $memberships = $github->users()->memberships()->all();
+          $memberships = $github->user()->memberships()->all();
           print_r($memberships);
+
         }
 
         //TODO: afegir minim d'update
