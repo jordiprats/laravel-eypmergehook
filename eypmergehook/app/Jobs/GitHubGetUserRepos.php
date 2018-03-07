@@ -46,6 +46,7 @@ class GitHubGetUserRepos implements ShouldQueue
       $github_account=LinkedSocialAccount::where(['user_id' => $user->id, 'provider' => 'github'])->first();
       if($github_account)
       {
+        //TODO: establir limit requests a la api de github
         $github = app('github.factory')->make(['token' => $github_account->token, 'method' => 'token']);
 
         // $repos = $github->users()->repositories($user->nickname);
@@ -66,8 +67,10 @@ class GitHubGetUserRepos implements ShouldQueue
                 // print_r($github_repo);
                 #$repo = $client->api('repo')->showById(123456)
                 $github_repo_extended=$github->repos()->showById($github_repo['id']);
-                ##print_r($github_repo_extended);
-                $fork=$github_repo_extended['parent']['clone_url'];
+                print_r($github_repo_extended);
+                
+                $fork            =$github_repo_extended['parent']['clone_url'];
+                $parent_github_id=$github_repo_extended['parent']['id'];
               }
               else
               {
@@ -97,6 +100,10 @@ class GitHubGetUserRepos implements ShouldQueue
                   'github_id'        => $github_repo['id'],
                   'parent_github_id' => $parent_github_id,
               ]);
+            }
+            else
+            {
+              //TODO: establir condició d'update
             }
           }
         }
