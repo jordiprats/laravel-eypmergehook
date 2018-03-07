@@ -73,7 +73,7 @@ class GitHubGetUserRepos implements ShouldQueue
               $repo = Repo::create([
                   'repo_name' => $github_repo['name'],
                   'full_name' => $github_repo['full_name'],
-                  'fork'      => $github_repo['fork'],
+                  #'fork'      => $github_repo['fork'],
                   'private'   => $github_repo['private'],
                   'clone_url' => $github_repo['clone_url'],
                   'user_id'   => $user->id,
