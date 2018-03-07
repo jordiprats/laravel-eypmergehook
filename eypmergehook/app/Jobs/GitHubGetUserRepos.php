@@ -41,6 +41,7 @@ class GitHubGetUserRepos implements ShouldQueue
   {
     $user = User::where(['nickname' => $this->username])->first();
 
+    //TODO: moure al UserController
     if($user)
     {
       $github_account=LinkedSocialAccount::where(['user_id' => $user->id, 'provider' => 'github'])->first();
@@ -54,7 +55,7 @@ class GitHubGetUserRepos implements ShouldQueue
         {
           // $memberships = $client->user()->memberships()->all();
           // $membership = $client->user()->memberships()->organization('KnpLabs');
-          $memberships = $github->user()->memberships()->all();
+          $memberships = $github->me()->memberships()->all();
           print_r($memberships);
 
         }
@@ -110,10 +111,14 @@ class GitHubGetUserRepos implements ShouldQueue
                     'github_id'        => $github_repo['id'],
                 ]);
               }
+              else
+              {
+                // TODO: check for organitzation membership
+              }
             }
             else
             {
-              //TODO: fer update de repo existent
+              // TODO: fer update de repo existent
             }
           }
 
