@@ -7,12 +7,11 @@
     <strong>{{ Session::get('status') }}</strong>
   </div>
   @endif
-  <h1>Public profile</h1>
+  <h1>profile</h1>
   <hr/>
 
   <div class="row">
   {{ Form::model($user, array('route' => 'user.update', 'files' => true)) }}
-  {{--  TODO: jcrop o similar--}}
     <div class="col-*-*">
         <img src="https://github.com/{{ $user->nickname }}.png?size=200" class="img-thumbnail"/>
         <input name="avatar" id="file-input" type="file" style="display: none" />

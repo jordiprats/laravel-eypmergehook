@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class UsersTelegramOptions extends Migration
+class UsersExtraOptions extends Migration
 {
   /**
    * Run the migrations.
@@ -16,6 +16,8 @@ class UsersTelegramOptions extends Migration
     Schema::table('users', function (Blueprint $table) {
       $table->boolean('telegram_notifications')->default(true);
       $table->string('telegram_chatid')->nullable();
+      $table->timestamp('github_repos_updated_on')->nullable();
+      $table->timestamp('github_organizations_updated_on')->nullable();
     });
   }
 

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Repo extends Model
 {
+  // everything is mass assignable
   protected $guarded = [];
 
   public function user()
