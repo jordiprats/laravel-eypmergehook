@@ -71,7 +71,7 @@ class GitHubGetUserRepos implements ShouldQueue
             if($github_repo['owner']['login']==$user->nickname)
             {
               $repo = Repo::create([
-                  'repo_name' => $github_repo['repo_name'],
+                  'repo_name' => $github_repo['name'],
                   'full_name' => $github_repo['full_name'],
                   'fork'      => $github_repo['fork'],
                   'private'   => $github_repo['private'],
