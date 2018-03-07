@@ -14,6 +14,7 @@ use GrahamCampbell\GitHub\GitHubFactory;
 use App\User;
 use App\Repo;
 use App\LinkedSocialAccount;
+use Carbon\Carbon;
 
 
 class GitHubGetUserRepos implements ShouldQueue
