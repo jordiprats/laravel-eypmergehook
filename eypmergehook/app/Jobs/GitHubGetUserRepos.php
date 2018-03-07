@@ -57,16 +57,6 @@ class GitHubGetUserRepos implements ShouldQueue
 
           $repo = Repo::where(['clone_url' => $github_repo['clone_url']])->first();
 
-          // $table->string('repo_name');
-          // $table->string('full_name')->nullable();
-          // $table->string('project_name')->nullable();
-          // $table->boolean('fork');
-          // $table->boolean('private');
-          // $table->string('clone_url');
-          // $table->integer('user_id')->nullable()->references('id')->on('users');
-          // $table->integer('organization_id')->nullable()->references('id')->on('organizations');
-          // $table->boolean('telegram_notifications')->default(true);
-          // $table->string('telegram_chatid')->nullable();
           if(!$repo)
           {
             if($github_repo['owner']['login']==$user->nickname)
@@ -76,15 +66,18 @@ class GitHubGetUserRepos implements ShouldQueue
                 // print_r($github_repo);
                 #$repo = $client->api('repo')->showById(123456)
                 $github_repo_extended=$github->repos()->showById($github_repo['id']);
-                print_r($github_repo_extended);
+                ##print_r($github_repo_extended);
+                $fork=$github_repo_extended['parent']['url'];
               }
+              else
+                $fork=NULL;
 
               $is_private=$github_repo['private']?true:false;
 
               echo "===\n";
               echo "name: ".$github_repo['name']."\n";
               echo "full_name: ".$github_repo['full_name']."\n";
-              #echo "fork: ".$github_repo['fork_url']."\n";
+              echo "fork: ".$fork."\n";
               echo "private: ".$is_private."\n";
               echo "clone_url: ".$github_repo['clone_url']."\n";
               echo "user_id: ".$user->id."\n";
