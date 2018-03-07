@@ -80,7 +80,7 @@ class GitHubGetUserRepos implements ShouldQueue
               echo "===\n";
               echo "name: ".$github_repo['name']."\n";
               echo "full_name: ".$github_repo['full_name']."\n";
-              echo "fork: ".$github_repo['fork_url']."\n";
+              #echo "fork: ".$github_repo['fork_url']."\n";
               echo "private: ".$is_private."\n";
               echo "clone_url: ".$github_repo['clone_url']."\n";
               echo "user_id: ".$user->id."\n";
