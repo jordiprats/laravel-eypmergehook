@@ -87,16 +87,16 @@ class GitHubGetUserRepos implements ShouldQueue
               echo "github_id: ".$github_repo['id']."\n";
               echo "parent_github_id: ".$parent_github_id."\n";
 
-              $repo = Repo::create([
-                  'repo_name'        => $github_repo['name'],
-                  'full_name'        => $github_repo['full_name'],
-                  'fork'             => $fork,
-                  'private'          => $is_private,
-                  'clone_url'        => $github_repo['clone_url'],
-                  'user_id'          => $user->id,
-                  'github_id'        => $github_repo['id'],
-                  'parent_github_id' => $parent_github_id,
-              ]);
+              // $repo = Repo::create([
+              //     'repo_name'        => $github_repo['name'],
+              //     'full_name'        => $github_repo['full_name'],
+              //     'fork'             => $fork,
+              //     'private'          => $is_private,
+              //     'clone_url'        => $github_repo['clone_url'],
+              //     'user_id'          => $user->id,
+              //     'github_id'        => $github_repo['id'],
+              //     'parent_github_id' => $parent_github_id,
+              // ]);
             }
           }
         }
