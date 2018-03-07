@@ -67,8 +67,9 @@ class GitHubGetUserRepos implements ShouldQueue
                 // print_r($github_repo);
                 #$repo = $client->api('repo')->showById(123456)
                 $github_repo_extended=$github->repos()->showById($github_repo['id']);
-                ##print_r($github_repo_extended);
-                $fork=$github_repo_extended['parent']['clone_url'];
+                print_r($github_repo_extended);
+                
+                $fork            =$github_repo_extended['parent']['clone_url'];
                 $parent_github_id=$github_repo_extended['parent']['id'];
               }
               else
