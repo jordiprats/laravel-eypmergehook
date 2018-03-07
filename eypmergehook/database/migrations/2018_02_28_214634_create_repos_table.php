@@ -18,7 +18,7 @@ class CreateReposTable extends Migration
       $table->string('repo_name');
       $table->string('full_name')->nullable();
       $table->string('project_name')->nullable();
-      $table->boolean('fork');
+      $table->string('fork')->nullable();
       $table->boolean('private');
       $table->string('clone_url');
       $table->integer('user_id')->nullable()->references('id')->on('users');
