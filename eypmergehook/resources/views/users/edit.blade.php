@@ -20,7 +20,10 @@
     <hr />
     <div class="col-*-*">
       <p>
-        <!-- TODO -->
+        <ul>
+          <li>Github repos last synced about {{ $user->github_repos_updated_on->diffForHumans() }}</li>
+          <li>Github organitzations last synced about {{ $user->github_organizations_updated_on->diffForHumans() }}</li>
+        </ul>
       <hr />
       {{ Form::submit('Save', array('class'=>'btn-success btn-lg')) }}
     </div>
