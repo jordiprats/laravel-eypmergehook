@@ -67,10 +67,13 @@ class GitHubGetUserRepos implements ShouldQueue
                 #$repo = $client->api('repo')->showById(123456)
                 $github_repo_extended=$github->repos()->showById($github_repo['id']);
                 ##print_r($github_repo_extended);
-                $fork=$github_repo_extended['parent']['url'];
+                $fork=$github_repo_extended['parent']['clone_url'];
               }
               else
+              {
                 $fork=NULL;
+                $parent_github_id=NULL;
+              }
 
               $is_private=$github_repo['private']?true:false;
 
@@ -81,15 +84,19 @@ class GitHubGetUserRepos implements ShouldQueue
               echo "private: ".$is_private."\n";
               echo "clone_url: ".$github_repo['clone_url']."\n";
               echo "user_id: ".$user->id."\n";
+              echo "github_id: ".$github_repo['id']."\n";
+              echo "parent_github_id: ".$parent_github_id."\n";
 
-              // $repo = Repo::create([
-              //     'repo_name' => $github_repo['name'],
-              //     'full_name' => $github_repo['full_name'],
-              //     'fork'      => $github_repo['fork'],
-              //     'private'   => $github_repo['private'],
-              //     'clone_url' => $github_repo['clone_url'],
-              //     'user_id'   => $user->id,
-              // ]);
+              $repo = Repo::create([
+                  'repo_name'        => $github_repo['name'],
+                  'full_name'        => $github_repo['full_name'],
+                  'fork'             => $fork,
+                  'private'          => $is_private,
+                  'clone_url'        => $github_repo['clone_url'],
+                  'user_id'          => $user->id,
+                  'github_id'        => $github_repo['id'],
+                  'parent_github_id' => $parent_github_id,
+              ]);
             }
           }
         }
