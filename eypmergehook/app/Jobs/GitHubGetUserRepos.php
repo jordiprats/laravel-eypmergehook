@@ -123,7 +123,7 @@ class GitHubGetUserRepos implements ShouldQueue
             }
           }
 
-          $user->github_repos_updated_on = \Carbon::now();
+          $user->github_repos_updated_on = Carbon::now();
 
           $user->save();
         }
