@@ -48,6 +48,7 @@ class GitHubGetUserRepos implements ShouldQueue
       {
         $github = app('github.factory')->make(['token' => $github_account->token, 'method' => 'token']);
 
+        // $repos = $github->users()->repositories($user->nickname);
         $github_paginator  = new ResultPager($github);
 
         foreach ($github_paginator->fetchAll($github->users(), 'repositories', [$user->nickname]) as $github_repo)
@@ -72,7 +73,10 @@ class GitHubGetUserRepos implements ShouldQueue
             {
               if($github_repo['fork'])
               {
-                print_r($github_repo);
+                // print_r($github_repo);
+                #$repo = $client->api('repo')->showById(123456)
+                $github_repo_extended=$github->repos()->showById($github_repo['id']);
+                print_r($github_repo_extended);
               }
 
               $is_private=$github_repo['private']?true:false;
