@@ -46,13 +46,7 @@ class GitHubGetUserRepos implements ShouldQueue
       $github_account=LinkedSocialAccount::where(['user_id' => $user->id, 'provider' => 'github'])->first();
       if($github_account)
       {
-        // echo "token: ".$github_account->token."\n";
-        //app(GitHubFactory::class)->make(['token' => $github_account->token, 'method' => 'token', 'cache' => true]);
         $github = app('github.factory')->make(['token' => $github_account->token, 'method' => 'token']);
-        //$repos = GitHub::connection()->users()->repositories($user->nickname);
-
-        // $repos = $github->users()->repositories($user->nickname);
-        // echo count($repos);
 
         $github_paginator  = new ResultPager($github);
 
@@ -90,11 +84,6 @@ class GitHubGetUserRepos implements ShouldQueue
             print_r($github_repo);
           }
         }
-        # $repos = $client->api('user')->repositories('KnpLabs');
-        # $issue = $client->api('issue')->show('KnpLabs', 'php-github-api', 1);
-        // GitHub::connection('main')->issues()->show('GrahamCampbell', 'Laravel-GitHub', 2);
-        // GitHub::issues()->show('GrahamCampbell', 'Laravel-GitHub', 2);
-        // GitHub::connection()->issues()->show('GrahamCampbell', 'Laravel-GitHub', 2);
       }
     }
   }
