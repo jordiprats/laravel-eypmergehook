@@ -99,6 +99,10 @@ class GitHubGetUserRepos implements ShouldQueue
                   'parent_github_id' => $parent_github_id,
               ]);
             }
+            else
+            {
+              //TODO: establir condició d'update
+            }
           }
         }
       }
