@@ -46,6 +46,7 @@ class GitHubGetUserRepos implements ShouldQueue
       $github_account=LinkedSocialAccount::where(['user_id' => $user->id, 'provider' => 'github'])->first();
       if($github_account)
       {
+        //TODO: establir limit requests a la api de github
         $github = app('github.factory')->make(['token' => $github_account->token, 'method' => 'token']);
 
         // $repos = $github->users()->repositories($user->nickname);
