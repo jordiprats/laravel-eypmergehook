@@ -70,6 +70,7 @@ class GitHubGetUserRepos implements ShouldQueue
           {
             if($github_repo['owner']['login']==$user->nickname)
             {
+              echo "===\n";
               echo $github_repo['name']."\n";
               echo $github_repo['full_name']."\n";
               echo $github_repo['fork']."\n";
