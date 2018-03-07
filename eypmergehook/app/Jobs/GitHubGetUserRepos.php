@@ -70,12 +70,13 @@ class GitHubGetUserRepos implements ShouldQueue
           {
             if($github_repo['owner']['login']==$user->nickname)
             {
-              echo $github_repo['name']."\n";
-              echo $github_repo['full_name']."\n";
-              echo $github_repo['fork']."\n";
-              echo $github_repo['private']."\n";
-              echo $github_repo['clone_url']."\n";
-              echo $user->id."\n";
+              echo "===\n";
+              echo "name: ".$github_repo['name']."\n";
+              echo "full_name: ".$github_repo['full_name']."\n";
+              echo "fork: ".$github_repo['fork']."\n";
+              echo "private: ".$github_repo['private']."\n";
+              echo "clone_url: ".$github_repo['clone_url']."\n";
+              echo "user_id: ".$user->id."\n";
 
               // $repo = Repo::create([
               //     'repo_name' => $github_repo['name'],
