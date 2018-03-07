@@ -89,8 +89,6 @@ class GitHubGetUserRepos implements ShouldQueue
           else {
             print_r($github_repo);
           }
-
-
         }
         # $repos = $client->api('user')->repositories('KnpLabs');
         # $issue = $client->api('issue')->show('KnpLabs', 'php-github-api', 1);
