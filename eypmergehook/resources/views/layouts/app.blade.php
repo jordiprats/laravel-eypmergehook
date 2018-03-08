@@ -43,13 +43,14 @@
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
                         @guest
-                            <li><a href="{{ route('login') }}">Login</a></li>
+                            <li><a href="/login/github"  class="btn btn-default btn-md">Log in with Github</a></li>
+                            {{-- <li><a href="{{ route('login') }}">Login</a></li> --}}
                             {{-- <li><a href="{{ route('register') }}">Register</a></li> --}}
                         @else
                             <li class="dropdown">
 
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
-                                    <img src="https://github.com/{{ Auth::user()->nickname }}.png?size=40" /> <span class="caret"></span>
+                                    <img src="https://github.com/{{ Auth::user()->nickname }}.png?size=40" class="img-rounded" /> <span class="caret"></span>
                                 </a>
 
                                 <ul class="dropdown-menu">

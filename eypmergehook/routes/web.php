@@ -27,7 +27,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+// Auth::routes();
+Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::get('/settings/profile', 'UserController@edit')->name('user.edit');
 Route::post('/settings/profile', 'UserController@edit')->name('user.edit');

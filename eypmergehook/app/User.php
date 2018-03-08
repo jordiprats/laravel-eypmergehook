@@ -37,6 +37,14 @@ class User extends Authenticatable
     return $this->hasMany(Repo::class);
   }
 
+  public function grants()
+  {
+    return $this->belongsToMany(Repo::class)
+      ->as('grants')
+      ->withPivot('admin', 'push', 'pull')
+      ->withTimestamps();
+  }
+
   public function organizations()
   {
     return $this->hasMany(Organization::class);

@@ -13,6 +13,7 @@ use GrahamCampbell\GitHub\Authenticators\AuthenticatorFactory;
 use GrahamCampbell\GitHub\GitHubFactory;
 use App\User;
 use App\Repo;
+use App\Organization;
 use App\LinkedSocialAccount;
 use Carbon\Carbon;
 
@@ -56,8 +57,40 @@ class GitHubGetUserRepos implements ShouldQueue
         {
           // $memberships = $client->user()->memberships()->all();
           // $membership = $client->user()->memberships()->organization('KnpLabs');
-          $memberships = $github->me()->memberships()->all();
-          print_r($memberships);
+          // $memberships = $github->me()->memberships()->all();
+          // print_r($memberships);
+          foreach ($github->me()->memberships()->all() as $github_membership)
+          {
+            $organization = Organization::where(['nickname' => $github_membership['organization']['login']])->first();
+
+            if(!$organization)
+            {
+              // echo "==\n";
+              // print_r($github_membership);
+              // [login] => whatever
+              // [id] => 1234
+              // [url] => https://api.github.com/orgs/whatever
+              // (...)
+              // [avatar_url] => https://avatars3.githubusercontent.com/u/1234?v=4
+              // [description] => blabblabla
+              $organization = Organization::create([
+              'github_id'   => $github_membership['organization']['id'],
+              'nickname'    => $github_membership['organization']['login'],
+              'url'         => $github_membership['organization']['url']?$github_membership['url']:NULL,
+              'avatar_url'  => $github_membership['organization']['avatar_url']?$github_membership['organization']['avatar_url']:NULL,
+              'description' => $github_membership['organization']['description']?$github_membership['organization']['description']:NULL,
+              ]);
+            }
+            else
+            {
+              // TODO: update org
+            }
+            $user->github_organizations_updated_on = Carbon::now();
+            $user->save();
+
+
+          }
+
 
         }
 
@@ -123,12 +156,9 @@ class GitHubGetUserRepos implements ShouldQueue
             }
           }
 
-          $user->github_repos_updated_on = Carbon\Carbon::now();
-
+          $user->github_repos_updated_on = Carbon::now();
           $user->save();
         }
-
-
 
       }
     }

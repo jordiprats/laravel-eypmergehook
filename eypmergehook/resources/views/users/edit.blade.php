@@ -13,7 +13,7 @@
   <div class="row">
   {{ Form::model($user, array('route' => 'user.update', 'files' => true)) }}
     <div class="col-*-*">
-        <img src="https://github.com/{{ $user->nickname }}.png?size=200" class="img-thumbnail"/>
+        <img src="https://github.com/{{ $user->nickname }}.png?size=200" class="img-rounded"/>
         <input name="avatar" id="file-input" type="file" style="display: none" />
       </div>
     </div>
@@ -21,8 +21,18 @@
     <div class="col-*-*">
       <p>
         <ul>
-          <li>Github repos last synced about {{ $user->github_repos_updated_on->diffForHumans() }}</li>
-          <li>Github organitzations last synced about {{ $user->github_organizations_updated_on->diffForHumans() }}</li>
+          <!-- github repos -->
+          @if($user->github_repos_updated_on)
+          <li>Github repos last synced about {{ Carbon\Carbon::parse($user->github_repos_updated_on)->diffForHumans() }}</li>
+          @else
+          <li>Github repos not synced</li>
+          @endif
+          <!-- github orgs -->
+          @if($user->github_organizations_updated_on)
+          <li>Github organitzations last synced about {{ Carbon\Carbon::parse($user->github_organizations_updated_on)->diffForHumans() }}</li>
+          @else
+          <li>Github organitzations not synced</li>
+          @endif
         </ul>
       <hr />
       {{ Form::submit('Save', array('class'=>'btn-success btn-lg')) }}
