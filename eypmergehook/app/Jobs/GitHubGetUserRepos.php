@@ -85,76 +85,16 @@ class GitHubGetUserRepos implements ShouldQueue
             {
               // TODO: update org
             }
-            $user->github_organizations_updated_on = Carbon::now();
-            $user->save();
-
-
           }
-
+          $user->github_organizations_updated_on = Carbon::now();
+          $user->save();
 
         }
 
         //TODO: afegir minim d'update
         if(!$user->github_repos_updated_on)
         {
-          // $repos = $github->users()->repositories($user->nickname);
-          $github_paginator  = new ResultPager($github);
-
-          foreach ($github_paginator->fetchAll($github->users(), 'repositories', [$user->nickname]) as $github_repo)
-          {
-            // echo $github_repo['full_name']."\n";
-
-            $repo = Repo::where(['clone_url' => $github_repo['clone_url']])->first();
-
-            if(!$repo)
-            {
-              if($github_repo['owner']['login']==$user->nickname)
-              {
-                if($github_repo['fork'])
-                {
-                  // print_r($github_repo);
-                  #$repo = $client->api('repo')->showById(123456)
-                  $github_repo_extended=$github->repos()->showById($github_repo['id']);
-                  // print_r($github_repo_extended);
-
-                  $fork=$github_repo_extended['parent']['clone_url'];
-                }
-                else
-                {
-                  $fork=NULL;
-                }
-
-                $is_private=$github_repo['private']?true:false;
-
-                // echo "===\n";
-                // echo "name: ".$github_repo['name']."\n";
-                // echo "full_name: ".$github_repo['full_name']."\n";
-                // echo "fork: ".$fork."\n";
-                // echo "private: ".$is_private."\n";
-                // echo "clone_url: ".$github_repo['clone_url']."\n";
-                // echo "user_id: ".$user->id."\n";
-                // echo "github_id: ".$github_repo['id']."\n";
-
-                $repo = Repo::create([
-                    'repo_name'        => $github_repo['name'],
-                    'full_name'        => $github_repo['full_name'],
-                    'fork'             => $fork,
-                    'private'          => $is_private,
-                    'clone_url'        => $github_repo['clone_url'],
-                    'user_id'          => $user->id,
-                    'github_id'        => $github_repo['id'],
-                ]);
-              }
-              else
-              {
-                // TODO: check for organitzation membership
-              }
-            }
-            else
-            {
-              // TODO: fer update de repo existent
-            }
-          }
+          UserController::fetchGitHubRepos($user, $github);
 
           $user->github_repos_updated_on = Carbon::now();
           $user->save();
