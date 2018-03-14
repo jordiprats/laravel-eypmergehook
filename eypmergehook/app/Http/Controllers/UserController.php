@@ -20,7 +20,7 @@ class UserController extends Controller
     $this->middleware('auth');
   }
 
-  public function fetchGitHubRepos($user, $github)
+  public static function fetchGitHubRepos($user, $github)
   {
     // $repos = $github->users()->repositories($user->nickname);
     $github_paginator  = new ResultPager($github);
