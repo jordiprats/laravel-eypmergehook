@@ -16,6 +16,7 @@ use App\Repo;
 use App\Organization;
 use App\LinkedSocialAccount;
 use Carbon\Carbon;
+use App\Http\Controllers\UserController;
 
 
 class GitHubGetUserRepos implements ShouldQueue
