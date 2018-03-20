@@ -55,6 +55,16 @@
 
                                 <ul class="dropdown-menu">
                                     <li>
+                                        <a href="{{ route('user.home') }}"
+                                            onclick="event.preventDefault();
+                                                     document.getElementById('settings-form').submit();">
+                                            Home
+                                        </a>
+
+                                        <form id="settings-form" action="{{ route('user.edit') }}" method="GET" style="display: none;">
+                                        </form>
+                                    </li>
+                                    <li>
                                         <a href="{{ route('user.edit') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('settings-form').submit();">

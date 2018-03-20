@@ -35,7 +35,7 @@ Route::post('/settings/profile', 'UserController@edit')->name('user.edit');
 Route::put('/settings/profile.update', 'UserController@update')->name('user.update');
 Route::post('/settings/profile.update', 'UserController@update')->name('user.update');
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('user.home');
 
 Route::get('/login/{provider}',          'Auth\SocialAccountController@redirectToProvider');
 Route::get('/login/{provider}/callback', 'Auth\SocialAccountController@handleProviderCallback');
