@@ -57,11 +57,11 @@
                                     <li>
                                         <a href="{{ route('home') }}"
                                             onclick="event.preventDefault();
-                                                     document.getElementById('settings-form').submit();">
+                                                     document.getElementById('home-form').submit();">
                                             Home
                                         </a>
 
-                                        <form id="settings-form" action="{{ route('user.edit') }}" method="GET" style="display: none;">
+                                        <form id="home-form" action="{{ route('home') }}" method="GET" style="display: none;">
                                         </form>
                                     </li>
                                     <li>
