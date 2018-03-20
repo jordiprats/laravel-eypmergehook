@@ -8,6 +8,9 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Jenssegers\Optimus\Optimus;
+
+
 
 class Tagger implements ShouldQueue
 {
@@ -15,6 +18,7 @@ class Tagger implements ShouldQueue
 
   protected $username;
   protected $repo;
+  protected $optimus;
 
   /**
    * Create a new job instance.
@@ -25,6 +29,7 @@ class Tagger implements ShouldQueue
   {
     $this->repo = $repo;
     $this->username = $username;
+    $this->optimus = new Optimus(1580030173, 59260789, 1163945558);
   }
 
   /**
@@ -34,6 +39,7 @@ class Tagger implements ShouldQueue
    */
   public function handle()
   {
+    // $encoded = $optimus->encode(20);
     if(strlen(config('telegrameyptagger.TELEGRAMTOKEN'))<=0)
     {
       $env="-e GITHUB_USERNAME=".$this->username;
