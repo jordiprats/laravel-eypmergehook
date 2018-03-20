@@ -55,7 +55,7 @@
 
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="{{ route('user.home') }}"
+                                        <a href="{{ route('home') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('settings-form').submit();">
                                             Home
