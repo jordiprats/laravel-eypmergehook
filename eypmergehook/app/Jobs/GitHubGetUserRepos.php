@@ -5,6 +5,7 @@ namespace App\Jobs;
 use GitHub;
 use Github\ResultPager;
 use Illuminate\Bus\Queueable;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -43,7 +44,7 @@ class GitHubGetUserRepos implements ShouldQueue
   public function handle()
   {
     Log::info("GitHubGetUserRepos: ".$this->username);
-    
+
     $user = User::where(['nickname' => $this->username])->first();
 
     //TODO: moure al UserController
