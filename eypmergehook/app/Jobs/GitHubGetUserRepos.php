@@ -18,6 +18,7 @@ use App\Organization;
 use App\LinkedSocialAccount;
 use Carbon\Carbon;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\OrganizationController;
 
 
 class GitHubGetUserRepos implements ShouldQueue
@@ -89,10 +90,14 @@ class GitHubGetUserRepos implements ShouldQueue
             {
               // TODO: update org
             }
+
+            OrganizationController::fetchGitHubRepos($organization, $github);
+
+            $organization->github_repos_updated_on = Carbon::now();
+            $organization->save();
           }
           $user->github_organizations_updated_on = Carbon::now();
           $user->save();
-
         }
 
         //TODO: afegir minim d'update
