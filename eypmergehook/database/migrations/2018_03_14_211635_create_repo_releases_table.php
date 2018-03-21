@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateModuleReleasesTable extends Migration
+class CreateRepoReleasesTable extends Migration
 {
   /**
    * Run the migrations.
@@ -13,8 +13,9 @@ class CreateModuleReleasesTable extends Migration
    */
   public function up()
   {
-    Schema::create('module_releases', function (Blueprint $table) {
+    Schema::create('repo_releases', function (Blueprint $table) {
       $table->increments('id');
+      $table->integer('repo_id')->references('id')->on('repos');
       $table->timestamps();
     });
   }
@@ -26,6 +27,6 @@ class CreateModuleReleasesTable extends Migration
    */
   public function down()
   {
-    Schema::dropIfExists('module_releases');
+    Schema::dropIfExists('repo_releases');
   }
 }
