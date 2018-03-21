@@ -21,6 +21,8 @@ class CreateOrganizationsTable extends Migration
       $table->string('url')->nullable();
       $table->integer('github_id')->nullable();
       $table->timestamps();
+      $table->timestamp('github_repos_updated_on')->nullable();
+      $table->timestamp('github_organizations_updated_on')->nullable();
     });
   }
 
