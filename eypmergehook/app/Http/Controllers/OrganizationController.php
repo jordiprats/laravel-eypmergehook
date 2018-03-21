@@ -7,7 +7,6 @@ use Auth;
 use Session;
 use App\Organization;
 use App\Repo;
-use App\Organization;
 use App\LinkedSocialAccount;
 use Carbon\Carbon;
 use GitHub;
