@@ -3,15 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Auth;
+use GitHub;
 use Session;
 use App\User;
 use App\Repo;
 use App\Organization;
+use Github\ResultPager;
 use App\LinkedSocialAccount;
 use Carbon\Carbon;
-use GitHub;
-use Github\ResultPager;
 
 class UserController extends Controller
 {
@@ -22,6 +23,7 @@ class UserController extends Controller
 
   public static function fetchGitHubRepos($user, $github)
   {
+    Log::info("UserController::fetchGitHubRepos: ".$user->nickname);
     // $repos = $github->users()->repositories($user->nickname);
     $github_paginator  = new ResultPager($github);
 
