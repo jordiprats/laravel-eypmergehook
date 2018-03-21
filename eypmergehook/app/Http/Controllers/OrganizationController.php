@@ -3,14 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Auth;
-use Session;
-use App\Organization;
-use App\Repo;
-use App\LinkedSocialAccount;
-use Carbon\Carbon;
 use GitHub;
+use Session;
+use App\Repo;
+use Carbon\Carbon;
+use App\Organization;
 use Github\ResultPager;
+use App\LinkedSocialAccount;
 
 class OrganizationController extends Controller
 {
@@ -21,6 +22,7 @@ class OrganizationController extends Controller
 
   public static function fetchGitHubRepos($organization, $github)
   {
+    Log::info("OrganizationController::fetchGitHubRepos: ".$organization->nickname);
     $github_paginator  = new ResultPager($github);
 
     foreach ($github_paginator->fetchAll($github->users(), 'repositories', [$organization->nickname]) as $github_repo)
