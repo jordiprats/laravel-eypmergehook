@@ -81,6 +81,9 @@ class UserController extends Controller
       {
         // TODO: fer update de repo existent
       }
+
+      // $repo si es nou o existent, check releases
+      dispatch(new RepoReleasesUpdater($user->nickname, $user->nickname, $repo->repo_name));
     }
   }
 
