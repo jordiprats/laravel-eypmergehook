@@ -42,7 +42,7 @@ class MergeController extends Controller
           $user = User::where(['nickname' => $username])->first();
           if($user)
           {
-            dispatch(new RepoReleasesUpdater($user, $username, $repo));
+            dispatch(new RepoReleasesUpdater($user->nickname, $username, $repo));
           }
           else
           {
@@ -53,7 +53,7 @@ class MergeController extends Controller
               $user=$organization->users()->first();
               if($user)
               {
-                dispatch(new RepoReleasesUpdater($user, $username, $repo));
+                dispatch(new RepoReleasesUpdater($user->nickname, $username, $repo));
               }
             }
             else
