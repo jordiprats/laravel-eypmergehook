@@ -125,7 +125,11 @@ class RepoReleasesUpdater implements ShouldQueue
             else
             {
               # verificar q no estigui en draft
-              $release = $github->repos()->releases()->show($this->owner, $this->repo, substr($github_tag['commit']['sha'], 0, 7));
+              //$release = $github->repos()->releases()->show($this->owner, $this->repo, substr($github_tag['commit']['sha'], 0, 7));
+              foreach($github_repo_releases as $release)
+              {
+                print_r($release);
+              }
 
               print_r($release);
             }
