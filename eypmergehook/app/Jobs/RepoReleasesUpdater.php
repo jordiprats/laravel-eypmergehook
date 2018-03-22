@@ -105,7 +105,7 @@ class RepoReleasesUpdater implements ShouldQueue
           $github_paginator  = new ResultPager($github);
           foreach ($github_paginator->fetchAll($github->repos(), 'tags', [$this->owner, $this->repo]) as $github_tag)
           {
-            //print_r($github_tag);
+            print_r($github_tag);
             //Log::info($this->owner."/".$this->repo.": ".$github_tag['name']);
 
             if(!$repo->reporeleases->contains('release_name', $github_tag['name']))
@@ -121,6 +121,13 @@ class RepoReleasesUpdater implements ShouldQueue
             if(!$repo->reporeleases->contains('release_name', $github_tag['name']))
             {
               $github->repos()->releases()->create($this->owner, $this->repo, array('tag_name' => $github_tag['name'], 'name' => $github_tag['name'], 'body' => $github_tag['name'], 'target_commitish' => 'master'));
+            }
+            else
+            {
+              # verificar q no estigui en draft
+              $release = $github->repos()->releases(), 'show', [$this->owner, $this->repo, $github_tag['name']];
+
+              print_r($release);
             }
           }
         }
