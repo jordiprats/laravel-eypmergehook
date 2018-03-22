@@ -86,7 +86,7 @@ class RepoReleasesUpdater implements ShouldQueue
 
 
           $github_paginator_releases  = new ResultPager($github);
-          $github_repo_releases = $github_paginator->fetchAll($github->repos()->releases(), 'all', [$this->owner, $this->repo]);
+          $github_repo_releases = $github_paginator_releases->fetchAll($github->repos()->releases(), 'all', [$this->owner, $this->repo]);
 
           print_r($github_repo_releases);
 
