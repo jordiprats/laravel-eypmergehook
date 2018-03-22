@@ -92,15 +92,25 @@ class GitHubGetUserRepos implements ShouldQueue
             }
 
             $organization->save();
+            $organization = Organization::where(['nickname' => $github_membership['organization']['login']])->first();
 
-            if(!$user->organizations()->exists($organization->id))
+            if($organization)
             {
-              Log::info("GitHubGetUserRepos: attaching ".$organization->nickanme." to ".$user->nickname);
-              $user->organizations()->attach($organization);
+              if(!$user->organizations()->exists($organization->id))
+              {
+                Log::info("GitHubGetUserRepos: attaching ".$organization->nickanme." to ".$user->nickname);
+                $user->organizations()->attach($organization);
+              }
+              else {
+                Log::info("GitHubGetUserRepos: already attached ".$organization->nickanme." to ".$user->nickname);
+              }
             }
-            else {
-              Log::info("GitHubGetUserRepos: already attached ".$organization->nickanme." to ".$user->nickname);
+            else
+            {
+              Log::info("GitHubGetUserRepos: org no disponible");
             }
+
+
 
             OrganizationController::fetchGitHubRepos($organization, $github);
 
