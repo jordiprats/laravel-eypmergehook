@@ -13,7 +13,7 @@ use App\Organization;
 use Github\ResultPager;
 use App\LinkedSocialAccount;
 use Carbon\Carbon;
-use App\Http\Jobs\RepoReleasesUpdater;
+use App\Jobs\RepoReleasesUpdater;
 
 class UserController extends Controller
 {
