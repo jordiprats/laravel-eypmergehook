@@ -41,22 +41,22 @@ class RepoReleasesUpdater implements ShouldQueue
     $this->repo = $repo;
   }
 
-  /**
-   * is a given tag released?
-   *
-   * @param $github_repo_releases
-   * @param $tag_name
-   * @return bool
-   */
-  protected function isReleased($github_repo_releases, $tag_name)
-  {
-    foreach ($github_repo_releases as $release)
-    {
-      if($release['name']==$tag_name)
-        return true;
-    }
-    return false;
-  }
+  // /**
+  //  * is a given tag released?
+  //  *
+  //  * @param $github_repo_releases
+  //  * @param $tag_name
+  //  * @return bool
+  //  */
+  // protected function isReleased($github_repo_releases, $tag_name)
+  // {
+  //   foreach ($github_repo_releases as $release)
+  //   {
+  //     if($release['name']==$tag_name)
+  //       return true;
+  //   }
+  //   return false;
+  // }
 
   /**
    * Execute the job.
@@ -88,6 +88,17 @@ class RepoReleasesUpdater implements ShouldQueue
           $github_paginator_releases  = new ResultPager($github);
           $github_repo_releases = $github_paginator_releases->fetchAll($github->repos()->releases(), 'all', [$this->owner, $this->repo]);
 
+          foreach($github_repo_releases as $release)
+          {
+            if(!$repo->reporeleases->contains('release_name', $release['name']))
+            {
+              $reporelease = RepoRelease::create([
+              'release_name' => $github_tag['name'],
+              'repo_id'      => $repo->id,
+              ]);
+            }
+          }
+
           print_r($github_repo_releases);
 
           $github_paginator  = new ResultPager($github);
@@ -105,7 +116,8 @@ class RepoReleasesUpdater implements ShouldQueue
             }
 
             // miro si existeix a github la release
-            if(!$this->isReleased($github_repo_releases, $github_tag['name']))
+            //if(!$this->isReleased($github_repo_releases, $github_tag['name']))
+            if(!$repo->reporeleases->contains('release_name', $github_tag['name']))
             {
               $github->repos()->releases()->create($this->owner, $this->repo, array('tag_name' => $github_tag['name'], 'name' => $github_tag['name'], 'body' => $github_tag['name'], 'target_commitish' => 'master'));
             }
