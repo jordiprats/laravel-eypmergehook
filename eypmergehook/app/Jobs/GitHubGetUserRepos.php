@@ -96,7 +96,7 @@ class GitHubGetUserRepos implements ShouldQueue
 
             if($organization)
             {
-              if(!$user->organizations()->exists($organization->id))
+              if(!$user->organizations->contains($organization))
               {
                 Log::info("GitHubGetUserRepos: attaching ".$organization->nickname."(".$organization->id.") to ".$user->nickname);
                 $user->organizations()->attach($organization);
