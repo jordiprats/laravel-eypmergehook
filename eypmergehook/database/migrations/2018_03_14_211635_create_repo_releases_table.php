@@ -16,6 +16,7 @@ class CreateRepoReleasesTable extends Migration
     Schema::create('repo_releases', function (Blueprint $table) {
       $table->increments('id');
       $table->integer('repo_id')->references('id')->on('repos');
+      $table->string('release_name');
       $table->timestamps();
     });
   }

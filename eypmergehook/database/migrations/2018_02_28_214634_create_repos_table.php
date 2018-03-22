@@ -25,6 +25,7 @@ class CreateReposTable extends Migration
       $table->integer('organization_id')->nullable()->references('id')->on('organizations');
       $table->boolean('telegram_notifications')->default(true);
       $table->string('telegram_chatid')->nullable();
+      $table->boolean('autoreleasetags')->default(false);
       $table->integer('github_id')->nullable();
       $table->timestamps();
     });

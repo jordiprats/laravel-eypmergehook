@@ -40,7 +40,6 @@ class UserController extends Controller
         {
           if($github_repo['fork'])
           {
-            // print_r($github_repo);
             #$repo = $client->api('repo')->showById(123456)
             $github_repo_extended=$github->repos()->showById($github_repo['id']);
             // print_r($github_repo_extended);
@@ -84,7 +83,7 @@ class UserController extends Controller
       }
 
       // $repo si es nou o existent, check releases
-      dispatch(new RepoReleasesUpdater($user->nickname, $user->nickname, $repo->repo_name));
+      //dispatch(new RepoReleasesUpdater($user->nickname, $user->nickname, $repo->repo_name));
     }
   }
 
