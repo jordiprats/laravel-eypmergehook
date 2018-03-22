@@ -98,16 +98,16 @@ class GitHubGetUserRepos implements ShouldQueue
             {
               if(!$user->organizations()->exists($organization->id))
               {
-                Log::info("GitHubGetUserRepos: attaching ".$organization->nickname." to ".$user->nickname);
+                Log::info("GitHubGetUserRepos: attaching ".$organization->nickname."(".$organization->id.") to ".$user->nickname);
                 $user->organizations()->attach($organization);
               }
               else {
-                Log::info("GitHubGetUserRepos: already attached ".$organization->nickname." to ".$user->nickname);
+                Log::info("GitHubGetUserRepos: already attached ".$organization->nickname."(".$organization->id.") to ".$user->nickname);
               }
             }
             else
             {
-              Log::info("GitHubGetUserRepos: org no disponible");
+              Log::info("GitHubGetUserRepos: org no disponible -_(._.)_-");
             }
 
 
