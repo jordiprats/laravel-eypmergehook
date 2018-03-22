@@ -128,7 +128,12 @@ class RepoReleasesUpdater implements ShouldQueue
               //$release = $github->repos()->releases()->show($this->owner, $this->repo, substr($github_tag['commit']['sha'], 0, 7));
               foreach($github_repo_releases as $release)
               {
-                print_r($release);
+                //print_r($release);
+                if(($release['name']==$github_tag['name']) && ($release['draft']==1))
+                {
+                  // $client->api('repo')->releases()->edit('twbs', 'bootstrap', $id, array('name' => 'New release name'));
+                  $github->repos()->releases()->edit($this->owner, $this->repo, $release['id'], array('draft' => false));
+                }
               }
 
               print_r($release);
