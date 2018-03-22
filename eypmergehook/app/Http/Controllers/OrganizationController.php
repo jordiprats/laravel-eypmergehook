@@ -28,7 +28,7 @@ class OrganizationController extends Controller
     foreach ($github_paginator->fetchAll($github->users(), 'repositories', [$organization->nickname]) as $github_repo)
     {
       $repo = Repo::where(['clone_url' => $github_repo['clone_url']])->first();
-      print_r($github_repo);
+      //print_r($github_repo);
       if(!$repo)
       {
         if($github_repo['fork'])
