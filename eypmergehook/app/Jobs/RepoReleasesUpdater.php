@@ -64,7 +64,8 @@ class RepoReleasesUpdater implements ShouldQueue
         $github_paginator  = new ResultPager($github);
         foreach ($github_paginator->fetchAll($github->repos(), 'tags', [$this->owner, $this->repo]) as $github_tag)
         {
-          Log::info($this->owner."/".$this->repo.": ".$github_tag);
+          print_r($github_tag);
+          //Log::info($this->owner."/".$this->repo.": ".$github_tag);
         }
       }
     }
