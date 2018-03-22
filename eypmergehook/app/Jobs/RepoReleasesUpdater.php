@@ -94,7 +94,7 @@ class RepoReleasesUpdater implements ShouldQueue
             if(!$repo->reporeleases->contains('release_name', $release['name']))
             {
               $reporelease = RepoRelease::create([
-              'release_name' => $github_tag['name'],
+              'release_name' => $release['name'],
               'repo_id'      => $repo->id,
               ]);
             }
