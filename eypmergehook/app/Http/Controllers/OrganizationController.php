@@ -61,6 +61,8 @@ class OrganizationController extends Controller
       {
         // TODO: fer update de repo existent
       }
+
+      //dispatch(new RepoReleasesUpdater(<buscar usuari amb permisos>, $organization->nickname, $repo->repo_name));
     }
   }
 }
