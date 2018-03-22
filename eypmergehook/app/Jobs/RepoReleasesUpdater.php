@@ -42,6 +42,23 @@ class RepoReleasesUpdater implements ShouldQueue
   }
 
   /**
+   * is a given tag released?
+   *
+   * @param $github_repo_releases
+   * @param $tag_name
+   * @return bool
+   */
+  protected function isReleased($github_repo_releases, $tag_name)
+  {
+    foreach ($github_repo_releases as $release)
+    {
+      if($release['name']==$tag_name)
+        return true;
+    }
+    return false;
+  }
+
+  /**
    * Execute the job.
    *
    * @return void
@@ -51,23 +68,55 @@ class RepoReleasesUpdater implements ShouldQueue
     Log::info("RepoReleasesUpdater: (".$this->username.") - ".$this->owner."/".$this->repo);
     $user = User::where(['nickname' => $this->username])->first();
 
-    //TODO: moure al UserController
+    $repo = Repo::where(['full_name' => $this->owner."/".$this->repo])->first();
+
     if($user)
     {
-      $github_account=LinkedSocialAccount::where(['user_id' => $user->id, 'provider' => 'github'])->first();
-      if($github_account)
+      if($repo)
       {
-        //TODO: establir limit requests a la api de github
-        $github = app('github.factory')->make(['token' => $github_account->token, 'method' => 'token']);
-
-        //$tags = $client->api('repo')->tags('twbs', 'bootstrap');
-        $github_paginator  = new ResultPager($github);
-        foreach ($github_paginator->fetchAll($github->repos(), 'tags', [$this->owner, $this->repo]) as $github_tag)
+        if($repo->autoreleasetags)
         {
-          print_r($github_tag);
-          //Log::info($this->owner."/".$this->repo.": ".$github_tag);
+          //moure tot lo següent aqui
         }
+        $github_account=LinkedSocialAccount::where(['user_id' => $user->id, 'provider' => 'github'])->first();
+        if($github_account)
+        {
+          //TODO: establir limit requests a la api de github
+          $github = app('github.factory')->make(['token' => $github_account->token, 'method' => 'token']);
+
+
+          $github_paginator_releases  = new ResultPager($github);
+          $github_repo_releases = $github_paginator->fetchAll($github->repos()->releases(), 'all', [$this->owner, $this->repo]);
+
+          print_r($github_repo_releases);
+
+          $github_paginator  = new ResultPager($github);
+          foreach ($github_paginator->fetchAll($github->repos(), 'tags', [$this->owner, $this->repo]) as $github_tag)
+          {
+            //print_r($github_tag);
+            //Log::info($this->owner."/".$this->repo.": ".$github_tag['name']);
+
+            if(!$repo->reporeleases->contains('release_name', $github_tag['name']))
+            {
+              $reporelease = RepoRelease::create([
+              'release_name' => $github_tag['name']
+              'repo_id'      => $repo->id,
+              ]);
+            }
+
+            // miro si existeix a github la release
+            if(!$this->isReleased($github_repo_releases, $github_tag['name']))
+            {
+              $github->repos()->releases()->create($this->owner, $this->repo, array('tag_name' => $github_tag['name'], 'name' => $github_tag['name'], 'body' => $github_tag['name'], 'target_commitish' => 'master'));
+            }
+          }
+        }
+        //Fi coses a moure
       }
+      else
+        Log::info("RepoReleasesUpdater: repo(".$this->owner."/".$this->repo.") - not found");
     }
+    else
+      Log::info("RepoReleasesUpdater: user(".$this->username.") - not found");
   }
 }

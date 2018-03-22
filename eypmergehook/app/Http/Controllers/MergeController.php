@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use App\Jobs\Tagger;
+use App\Jobs\RepoReleasesUpdater;
 
 class MergeController extends Controller
 {
@@ -35,6 +36,32 @@ class MergeController extends Controller
         {
           Log::info("job Tagger for ".$username."/".$repo);
           dispatch(new Tagger($username, $repo));
+
+          $user = User::where(['nickname' => $username])->first();
+          if($user)
+          {
+            dispatch(new RepoReleasesUpdater($user, $username, $repo));
+          }
+          else
+          {
+            # check for organization
+            $organization = Organization::where(['nickname' => $username])->first();
+            if($organization)
+            {
+              $user=$organization->users()->first();
+              if($user)
+              {
+                dispatch(new RepoReleasesUpdater($user, $username, $repo));
+              }
+            }
+            else
+            {
+              Log::info("ignorant hook de usuari no registrat");
+            }
+          }
+
+
+          //dispatch(new RepoReleasesUpdater(<buscar usuari amb permisos>, $username, $repo));
         }
         catch(\Exception $e)
         {

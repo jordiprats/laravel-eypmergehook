@@ -19,8 +19,8 @@ class Repo extends Model
     return $this->belongsTo(User::class);
   }
 
-  public function modulereleases()
+  public function reporeleases()
   {
-    return $this->hasMany(ModuleRelease::class);
+    return $this->hasMany(RepoRelease::class);
   }
 }
