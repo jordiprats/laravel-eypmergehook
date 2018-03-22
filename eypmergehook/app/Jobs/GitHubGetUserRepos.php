@@ -91,6 +91,9 @@ class GitHubGetUserRepos implements ShouldQueue
               // TODO: update org
             }
 
+            if(!$user->organizations()->exists($organization->id))
+              $user->organizations()->attach($organization);
+
             OrganizationController::fetchGitHubRepos($organization, $github);
 
             $organization->github_repos_updated_on = Carbon::now();

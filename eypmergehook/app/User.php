@@ -47,7 +47,7 @@ class User extends Authenticatable
 
   public function organizations()
   {
-    return $this->hasMany(Organization::class);
+    return $this->belongsToMany(Organization::class)->withTimestamps();;
   }
 
   public function linkedsocialaccounts()
