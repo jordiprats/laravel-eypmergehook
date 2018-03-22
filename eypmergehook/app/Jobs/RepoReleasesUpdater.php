@@ -136,7 +136,7 @@ class RepoReleasesUpdater implements ShouldQueue
                 }
               }
 
-              print_r($release);
+              //print_r($release);
             }
           }
         }
