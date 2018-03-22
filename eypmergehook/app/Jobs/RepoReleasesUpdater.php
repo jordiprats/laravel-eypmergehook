@@ -14,6 +14,7 @@ use GrahamCampbell\GitHub\Authenticators\AuthenticatorFactory;
 use GrahamCampbell\GitHub\GitHubFactory;
 use App\User;
 use App\Repo;
+use App\RepoRelease;
 use App\Organization;
 use App\LinkedSocialAccount;
 use Carbon\Carbon;
