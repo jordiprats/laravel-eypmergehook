@@ -92,12 +92,19 @@ class GitHubGetUserRepos implements ShouldQueue
             }
 
             if(!$user->organizations()->exists($organization->id))
+            {
+              Log::info("GitHubGetUserRepos: attaching ".$organization->nickanme." to ".$user->nickname);
               $user->organizations()->attach($organization);
+            }
+            else {
+              Log::info("GitHubGetUserRepos: already attached ".$organization->nickanme." to ".$user->nickname);
+            }
 
             OrganizationController::fetchGitHubRepos($organization, $github);
 
             $organization->github_repos_updated_on = Carbon::now();
             $organization->save();
+            $user->save();
           }
           $user->github_organizations_updated_on = Carbon::now();
           $user->save();
