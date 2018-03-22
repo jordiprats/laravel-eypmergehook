@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use App\Jobs\Tagger;
 use App\Jobs\RepoReleasesUpdater;
+use App\User;
+use App\Organization;
 
 class MergeController extends Controller
 {
