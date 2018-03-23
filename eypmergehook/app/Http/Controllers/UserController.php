@@ -114,7 +114,8 @@ class UserController extends Controller
   {
     //validate
     $this->validate($request, array(
-      'name' => 'required|string|max:255',
+      'telegram_chatid'        => 'nullable|string|max:255',
+      'telegram_notifications' => 'boolean',
     ));
 
     $user = Auth::user();

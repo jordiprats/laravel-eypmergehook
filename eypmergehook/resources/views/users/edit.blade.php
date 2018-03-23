@@ -18,6 +18,9 @@
     <div class="col-sm-8">
       {{ Form::label('telegram_notifications', 'Telegram notifications') }}
       {{ Form::checkbox('telegram_notifications', 'value', true) }}
+
+      {{ Form::label('telegram_chatid', 'Telegram chatid') }}
+      {{ Form::text('telegram_chatid') }}
       <hr />
         <p>
           <ul>
