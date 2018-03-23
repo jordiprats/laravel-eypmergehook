@@ -121,7 +121,7 @@ class UserController extends Controller
     $user = Auth::user();
 
     $user->telegram_chatid=$request->telegram_chatid;
-    $user->telegram_notifications=$request->telegram_notifications;
+    $user->telegram_notifications=$request->telegram_notifications==1;
 
     $user->save();
 
