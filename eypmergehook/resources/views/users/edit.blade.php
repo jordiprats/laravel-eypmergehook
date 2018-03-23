@@ -38,9 +38,7 @@
       <hr />
     </div>
   </div>
-  <div class="row">
-    {{ Form::submit('Save', array('class'=>'btn-success btn-lg')) }}
-    {{ Form::close() }}
-  </div>
+  {{ Form::submit('Save', array('class'=>'btn-success btn-lg')) }}
+  {{ Form::close() }}
 </div>
 @endsection
