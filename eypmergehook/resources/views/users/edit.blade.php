@@ -16,7 +16,8 @@
         <img src="https://github.com/{{ $user->nickname }}.png?size=200" class="img-rounded"/>
     </div>
     <div class="col-sm-8">
-      aa
+      {{ Form::label('telegram_notifications', 'Telegram notifications') }}
+      {{ Form::checkbox('telegram_notifications', 'value', true) }}
       <hr />
         <p>
           <ul>
