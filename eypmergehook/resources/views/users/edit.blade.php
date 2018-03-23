@@ -17,7 +17,7 @@
     </div>
     <div class="col-sm-8">
       {{ Form::label('telegram_notifications', 'Telegram notifications') }}
-      {{ Form::checkbox('telegram_notifications', ''.$user->telegram_notifications, $user->telegram_notifications==1) }}
+      {{ Form::checkbox('telegram_notifications', '1', $user->telegram_notifications==1) }}
 
       {{ Form::label('telegram_chatid', 'Telegram chatid') }}
       {{ Form::text('telegram_chatid', $user->telegram_chatid) }}
