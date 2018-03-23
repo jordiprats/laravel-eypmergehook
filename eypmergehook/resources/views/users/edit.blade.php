@@ -36,8 +36,8 @@
           @endif
         </ul>
       <hr />
-      {{ Form::submit('Save', array('class'=>'btn-success btn-lg')) }}
     </div>
+    {{ Form::submit('Save', array('class'=>'btn-success btn-lg')) }}
   {{ Form::close() }}
   </div>
 </div>
