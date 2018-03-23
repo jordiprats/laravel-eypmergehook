@@ -10,12 +10,12 @@
   <h1>profile</h1>
   <hr/>
 
-  <div class="row">
   {{ Form::model($user, array('route' => 'user.update', 'files' => true)) }}
-    <div class="col-sm-4">
+  <div class="row">
+    <div class="col-*-*">
         <img src="https://github.com/{{ $user->nickname }}.png?size=200" class="img-rounded"/>
     </div>
-    <div class="col-sm-8">
+    <div class="col-*-*">
       aa
     </div>
     <hr />
@@ -37,8 +37,10 @@
         </ul>
       <hr />
     </div>
+  </div>
+  <div class="row">
     {{ Form::submit('Save', array('class'=>'btn-success btn-lg')) }}
-  {{ Form::close() }}
+    {{ Form::close() }}
   </div>
 </div>
 @endsection
