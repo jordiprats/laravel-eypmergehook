@@ -12,10 +12,11 @@
 
   <div class="row">
   {{ Form::model($user, array('route' => 'user.update', 'files' => true)) }}
-    <div class="col-*-*">
+    <div class="col-sm-4">
         <img src="https://github.com/{{ $user->nickname }}.png?size=200" class="img-rounded"/>
-        <input name="avatar" id="file-input" type="file" style="display: none" />
-      </div>
+    </div>
+    <div class="col-sm-8">
+      aa
     </div>
     <hr />
     <div class="col-*-*">

@@ -23,6 +23,8 @@ class CreateReposTable extends Migration
       $table->string('clone_url');
       $table->integer('user_id')->nullable()->references('id')->on('users');
       $table->integer('organization_id')->nullable()->references('id')->on('organizations');
+      $table->boolean('webhook')->default(false);
+      $table->string('webhook_password');
       $table->boolean('telegram_notifications')->default(true);
       $table->string('telegram_chatid')->nullable();
       $table->boolean('autoreleasetags')->default(false);

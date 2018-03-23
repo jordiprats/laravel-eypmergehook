@@ -20,6 +20,8 @@ class CreateOrganizationsTable extends Migration
       $table->string('avatar_url')->nullable();
       $table->string('url')->nullable();
       $table->integer('github_id')->nullable();
+      $table->boolean('telegram_notifications')->default(true);
+      $table->string('telegram_chatid')->nullable();
       $table->timestamps();
       $table->timestamp('github_repos_updated_on')->nullable();
       $table->timestamp('github_organizations_updated_on')->nullable();
