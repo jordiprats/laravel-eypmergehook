@@ -123,8 +123,7 @@ class UserController extends Controller
     Log::info("UserController::telegram_notifications: ".$request->telegram_notifications);
 
     $user->telegram_chatid=$request->telegram_chatid;
-    $user->telegram_notifications=$request->telegram_notifications==1;
-
+    $user->telegram_notifications=$request->telegram_notifications==1?true:false;
     $user->save();
 
     //flash data
