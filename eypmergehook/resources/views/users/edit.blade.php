@@ -12,30 +12,28 @@
 
   {{ Form::model($user, array('route' => 'user.update', 'files' => true)) }}
   <div class="row">
-    <div class="col-*-*">
+    <div class="col-sm-4">
         <img src="https://github.com/{{ $user->nickname }}.png?size=200" class="img-rounded"/>
     </div>
-    <div class="col-*-*">
+    <div class="col-sm-8">
       aa
-    </div>
-    <hr />
-    <div class="col-*-*">
-      <p>
-        <ul>
-          <!-- github repos -->
-          @if($user->github_repos_updated_on)
-          <li>Github repos last synced about {{ Carbon\Carbon::parse($user->github_repos_updated_on)->diffForHumans() }}</li>
-          @else
-          <li>Github repos not synced</li>
-          @endif
-          <!-- github orgs -->
-          @if($user->github_organizations_updated_on)
-          <li>Github organitzations last synced about {{ Carbon\Carbon::parse($user->github_organizations_updated_on)->diffForHumans() }}</li>
-          @else
-          <li>Github organitzations not synced</li>
-          @endif
-        </ul>
       <hr />
+        <p>
+          <ul>
+            <!-- github repos -->
+            @if($user->github_repos_updated_on)
+            <li>Github repos last synced about {{ Carbon\Carbon::parse($user->github_repos_updated_on)->diffForHumans() }}</li>
+            @else
+            <li>Github repos not synced</li>
+            @endif
+            <!-- github orgs -->
+            @if($user->github_organizations_updated_on)
+            <li>Github organitzations last synced about {{ Carbon\Carbon::parse($user->github_organizations_updated_on)->diffForHumans() }}</li>
+            @else
+            <li>Github organitzations not synced</li>
+            @endif
+          </ul>
+        <hr />
     </div>
   </div>
   {{ Form::submit('Save', array('class'=>'btn-success btn-lg')) }}
