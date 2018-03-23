@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ProjectReporepelasePivot extends Migration
+class PlatformReporepelasePivot extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,10 @@ class ProjectReporepelasePivot extends Migration
      */
     public function up()
     {
-        Schema::create('project_reporelease', function (Blueprint $table) {
+        Schema::create('platform_reporelease', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('eypconf_projectid');
+            $table->string('eypconf_magic_hash');
             $table->timestamps();
         });
     }
@@ -26,6 +28,6 @@ class ProjectReporepelasePivot extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('project_reporelease');
+        Schema::dropIfExists('platform_reporelease');
     }
 }

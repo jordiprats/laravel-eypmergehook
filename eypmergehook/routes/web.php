@@ -39,3 +39,12 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/login/{provider}',          'Auth\SocialAccountController@redirectToProvider');
 Route::get('/login/{provider}/callback', 'Auth\SocialAccountController@handleProviderCallback');
+
+Route::resource('/platforms', 'PlatformController');
+
+Route::prefix('/{user}')->group(function () {
+  Route::prefix('/{platform}')->group(function () {
+    Route::get('/', 'PlatformController@getUserPlatform')->name('show.eyp.user.platform');
+  });
+  Route::get('/', 'UserController@userPlatforms')->name('show.eyp.user');
+});
