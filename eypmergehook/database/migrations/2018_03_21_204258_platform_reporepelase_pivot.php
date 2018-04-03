@@ -15,8 +15,6 @@ class PlatformReporepelasePivot extends Migration
     {
         Schema::create('platform_reporelease', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('eypconf_projectid');
-            $table->string('eypconf_magic_hash');
             $table->timestamps();
         });
     }

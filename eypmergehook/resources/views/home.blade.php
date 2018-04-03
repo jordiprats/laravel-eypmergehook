@@ -8,7 +8,7 @@
                 <div class="panel-heading">{{ $user->nickname }} ({{ $user->name }})</div>
                 <div class="panel-body">
                   @if(Auth::user()==$user)
-                  {!! Form::open(['route' => 'platform.create', 'method' => 'get']) !!}
+                  {!! Form::open(['route' => 'platforms.create', 'method' => 'get']) !!}
                     {{ Form::submit('Create new platform', array('class'=>'btn-success btn-lg', 'style'=>'float:right')) }}
                   {!! Form::close() !!}
                   @endif

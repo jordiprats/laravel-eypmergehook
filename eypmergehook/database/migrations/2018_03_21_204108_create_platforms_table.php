@@ -15,6 +15,11 @@ class CreatePlatformsTable extends Migration
     {
         Schema::create('platforms', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('platform_name');
+            $table->string('slug');
+            $table->string('description');
+            $table->string('eypconf_magic_hash')
+            $table->integer('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }
