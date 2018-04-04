@@ -12,10 +12,16 @@
                     {{ Form::submit('Create new platform', array('class'=>'btn-success btn-lg', 'style'=>'float:right')) }}
                   {!! Form::close() !!}
                   @endif
-                  <h1>Platforms</h1>
+                  <h2>Platforms</h2>
                   <ul>
                     @foreach ($platforms as $platform)
                     <li>@include('breadcrumbs.platform')</li>
+                    @endforeach
+                  </ul>
+                  <h2>Repos</h2>
+                  <ul>
+                    @foreach ($repos as $repo)
+                    <li>@include('breadcrumbs.repos')</li>
                     @endforeach
                   </ul>
                 </div>

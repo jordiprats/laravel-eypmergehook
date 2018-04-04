@@ -43,8 +43,11 @@ Route::get('/login/{provider}/callback', 'Auth\SocialAccountController@handlePro
 Route::resource('/platforms', 'PlatformController');
 
 Route::prefix('/{nickname}')->group(function () {
-  Route::prefix('/{platform}')->group(function () {
+  Route::prefix('/platform-{platform}')->group(function () {
     Route::get('/', 'PlatformController@getUserPlatform')->name('show.eyp.user.platform');
+  });
+  Route::prefix('/repo-{repo}')->group(function () {
+    Route::get('/', 'RepoController@getUserRepo')->name('show.eyp.user.repo');
   });
   Route::get('/', 'UserController@userPlatforms')->name('show.eyp.user');
 });
