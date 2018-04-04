@@ -20,6 +20,7 @@ class CreatePlatformsTable extends Migration
             $table->string('description');
             $table->string('eypconf_magic_hash');
             $table->integer('user_id')->references('id')->on('users');
+            $table->unique(['user_id', 'slug'], 'user_slash_platform_slug_is_uniq');
             $table->timestamps();
         });
     }
