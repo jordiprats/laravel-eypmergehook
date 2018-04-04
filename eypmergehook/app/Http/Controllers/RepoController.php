@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Platform;
 use Auth;
 use App\User;
+use App\Repo;
 
 class RepoController extends Controller
 {
