@@ -14,9 +14,9 @@
                   @endif
                   <h1>Platforms</h1>
                   <ul>
-                    @foreach ($platforms as $platform)
+                    {{-- @foreach ($platforms as $platform)
                     <li>@include('breadcrumbs.platform')</li>
-                    @endforeach
+                    @endforeach --}}
                   </ul>
                 </div>
             </div>
