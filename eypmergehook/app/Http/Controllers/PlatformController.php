@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Platform;
 use Auth;
 use App\User;
-use App\Jobs\GitInit;
 
 class PlatformController extends Controller
 {
@@ -66,16 +65,6 @@ class PlatformController extends Controller
       $platform->user_id = $user->id;
 
       $platform->save();
-
-      try
-      {
-        // try code
-        dispatch(new GitInit($platform));
-      }
-      catch(\Exception $e){
-        $platform->status=-1;
-        $platform->save();
-      }
 
     }
 

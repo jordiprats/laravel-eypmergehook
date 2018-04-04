@@ -55,4 +55,9 @@ class User extends Authenticatable
     return $this->hasMany(LinkedSocialAccount::class);
   }
 
+  public function platforms()
+  {
+    return $this->hasMany(Platform::class);
+  }
+
 }
