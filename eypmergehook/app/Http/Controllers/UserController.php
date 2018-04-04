@@ -87,9 +87,9 @@ class UserController extends Controller
     }
   }
 
-  public function userPlatforms($user)
+  public function userPlatforms($nickname)
   {
-    return view('home')->with('user', User::where('nickname', $user)->first());
+    return view('home')->with('platforms', User::where('nickname', $user)->first()->platforms)->with('user', User::where('nickname', $user)->first());
   }
 
   /**

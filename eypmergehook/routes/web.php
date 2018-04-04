@@ -42,7 +42,7 @@ Route::get('/login/{provider}/callback', 'Auth\SocialAccountController@handlePro
 
 Route::resource('/platforms', 'PlatformController');
 
-Route::prefix('/{user}')->group(function () {
+Route::prefix('/{nickname}')->group(function () {
   Route::prefix('/{platform}')->group(function () {
     Route::get('/', 'PlatformController@getUserPlatform')->name('show.eyp.user.platform');
   });
