@@ -87,10 +87,11 @@ class UserController extends Controller
     }
   }
 
-  public function userPlatforms($nickname)
+  public function getUserInfo($nickname)
   {
     return view('home')
             ->with('user',      User::where('nickname', $nickname)->first())
+            ->with('repos',     User::where('nickname', $nickname)->first()->repos)
             ->with('platforms', User::where('nickname', $nickname)->first()->platforms);
   }
 

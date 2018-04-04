@@ -49,5 +49,5 @@ Route::prefix('/{nickname}')->group(function () {
   Route::prefix('/repo-{repo}')->group(function () {
     Route::get('/', 'RepoController@getUserRepo')->name('show.eyp.user.repo');
   });
-  Route::get('/', 'UserController@userPlatforms')->name('show.eyp.user');
+  Route::get('/', 'UserController@getUserInfo')->name('show.eyp.user');
 });
