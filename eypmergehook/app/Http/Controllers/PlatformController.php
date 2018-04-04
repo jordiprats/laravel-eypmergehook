@@ -72,11 +72,11 @@ class PlatformController extends Controller
     return redirect()->route('show.eyp.user.platform', [ 'user' => $user->username, 'platform' => $platform->slug]);
   }
 
-  public function getUserPlatform($username, $platform_name)
+  public function getUserPlatform($nickname, $platform_name)
   {
-    if(User::where('username', $username)->count() == 1)
+    if(User::where('nickname', $nickname)->count() == 1)
     {
-      $user = User::where('username', $username)->first();
+      $user = User::where('nickname', $nickname)->first();
       $platform = Platform::where('user_id', $user->id)
           ->where('slug', $platform_name)->first();
       return view('platforms.show')->with('platform', $platform)->with('user', $user);
