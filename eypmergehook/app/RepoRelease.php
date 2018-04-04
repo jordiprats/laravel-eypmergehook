@@ -8,4 +8,5 @@ class RepoRelease extends Model
 {
   // everything is mass assignable
   protected $guarded = [];
+
 }
