@@ -38,7 +38,8 @@ class RepoReleaseController extends Controller
     }
     catch (Exception $e)
     {
-        echo 'Caught exception: ',  $e->getMessage(), "\n";
+      //[2018-04-09 21:24:14] local.ERROR: Not Found {"exception":"[object] (Github\\Exception\\RuntimeException(code: 404): Not Found at /home/jprats/git/laravel-eypmergehook/eypmergehook/vendor/knplabs/github-api/lib/Github/HttpClient/Plugin/GithubExceptionThrower.php:87)
+      echo 'Caught exception: ',  $e->getMessage(), "\n";
     }
   }
 }
