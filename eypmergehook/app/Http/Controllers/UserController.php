@@ -72,6 +72,8 @@ class UserController extends Controller
               'github_id'        => $github_repo['id'],
           ]);
 
+          //TODO: analitzar repo
+
           RepoReleaseController::fetchGitHubRepoReleases($user->nickname, $github_repo['name'], $github);
         }
         else
@@ -83,7 +85,7 @@ class UserController extends Controller
       {
         // TODO: fer update de repo existent
 
-        // llegir releases
+        // TODO: llegir releases només si cal
         RepoReleaseController::fetchGitHubRepoReleases($user->nickname, $repo->repo_name, $github);
       }
 
