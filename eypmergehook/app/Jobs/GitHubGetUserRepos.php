@@ -57,8 +57,9 @@ class GitHubGetUserRepos implements ShouldQueue
         //TODO: establir limit requests a la api de github
         $github = app('github.factory')->make(['token' => $github_account->token, 'method' => 'token']);
 
-        //TODO: afegir minim d'update
-        if(!$user->github_organizations_updated_on)
+        $date24hoursAgo = strtotime("-24 hours");
+
+        if((!$user->github_organizations_updated_on) || ($user->github_organizations_updated_on < $date24hoursAgo))
         {
           // $memberships = $client->user()->memberships()->all();
           // $membership = $client->user()->memberships()->organization('KnpLabs');
