@@ -21,7 +21,7 @@ class RepoReleaseController extends Controller
     $github_paginator  = new ResultPager($github);
 
     $user = User::where(['nickname' => $nickname])->first();
-    $repo = Repo::where(['full_name' => $this->owner."/".$this->repo, 'user_id' => $user->id])->first();
+    $repo = Repo::where(['full_name' => $nickname."/".$repo, 'user_id' => $user->id])->first();
 
     foreach ($github_paginator->fetchAll($github->repos()->releases(), 'all', [$nickname, $repo]) as $github_release)
     {
