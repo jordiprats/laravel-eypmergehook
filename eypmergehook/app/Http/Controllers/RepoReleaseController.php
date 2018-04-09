@@ -8,6 +8,7 @@ use Auth;
 use GitHub;
 use Session;
 use App\Repo;
+use App\RepoRelease;
 use App\User;
 use Github\ResultPager;
 use Carbon\Carbon;
