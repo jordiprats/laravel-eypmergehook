@@ -15,6 +15,7 @@ class PlatformReporepelasePivot extends Migration
     {
         Schema::create('platform_reporelease', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('branch_name');
             $table->timestamps();
         });
     }
