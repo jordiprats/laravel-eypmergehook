@@ -23,15 +23,22 @@ class RepoReleaseController extends Controller
     $user = User::where(['nickname' => $nickname])->first();
     $repo = Repo::where(['full_name' => $nickname."/".$repo, 'user_id' => $user->id])->first();
 
-    foreach ($github_paginator->fetchAll($github->repos()->releases(), 'all', [$nickname, $repo]) as $github_release)
+    try
     {
-      if(!$repo->reporeleases->contains('release_name', $release['name']))
+      foreach ($github_paginator->fetchAll($github->repos()->releases(), 'all', [$nickname, $repo]) as $github_release)
       {
-        RepoRelease::create([
-          'release_name' => $release['name'],
-          'repo_id'      => $repo->id,
-        ]);
+        if(!$repo->reporeleases->contains('release_name', $release['name']))
+        {
+          RepoRelease::create([
+            'release_name' => $release['name'],
+            'repo_id'      => $repo->id,
+          ]);
+        }
       }
+    }
+    catch (Exception $e)
+    {
+        echo 'Caught exception: ',  $e->getMessage(), "\n";
     }
   }
 }
