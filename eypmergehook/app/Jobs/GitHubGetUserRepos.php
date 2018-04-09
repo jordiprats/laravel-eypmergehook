@@ -137,6 +137,11 @@ class GitHubGetUserRepos implements ShouldQueue
           $user->github_repos_updated_on = Carbon::now();
           $user->save();
         }
+        else
+        {
+          //$user->github_organizations_updated_on
+          Log::info("GitHubGetUserRepos: skipping ".$this->username." repos updated on".$user->github_repos_updated_on);
+        }
 
       }
     }
