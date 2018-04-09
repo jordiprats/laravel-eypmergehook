@@ -3,6 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Auth;
+use GitHub;
+use Session;
+use App\User;
+use App\Repo;
+use App\Organization;
+use Github\ResultPager;
+use App\LinkedSocialAccount;
+use Carbon\Carbon;
+use App\Jobs\RepoReleasesUpdater;
 
 class RepoReleaseController extends Controller
 {
