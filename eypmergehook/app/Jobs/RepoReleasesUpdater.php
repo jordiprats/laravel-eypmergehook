@@ -69,7 +69,7 @@ class RepoReleasesUpdater implements ShouldQueue
     Log::info("RepoReleasesUpdater: (".$this->username.") - ".$this->owner."/".$this->repo);
     $user = User::where(['nickname' => $this->username])->first();
 
-    $repo = Repo::where(['full_name' => $this->owner."/".$this->repo])->first();
+    $repo = Repo::where(['full_name' => $this->owner."/".$this->repo, 'user_id' => $user->id])->first();
 
     if($user)
     {
