@@ -15,15 +15,15 @@ use App\Jobs\RepoReleasesUpdater;
 
 class RepoReleaseController extends Controller
 {
-  public static function fetchGitHubRepoReleases($nickname, $repo, $github)
+  public static function fetchGitHubRepoReleases($nickname, $repo_name, $github)
   {
-    Log::info("RepoReleaseController::fetchGitHubRepoReleases: ".$nickname."/".$repo);
+    Log::info("RepoReleaseController::fetchGitHubRepoReleases: ".$nickname."/".$repo_name);
     $github_paginator  = new ResultPager($github);
 
     $user = User::where(['nickname' => $nickname])->first();
-    $repo = Repo::where(['full_name' => $nickname."/".$repo, 'user_id' => $user->id])->first();
+    $repo = Repo::where(['full_name' => $nickname."/".$repo_name, 'user_id' => $user->id])->first();
 
-    foreach ($github_paginator->fetchAll($github->repos()->releases(), 'all', [$nickname, $repo]) as $github_release)
+    foreach ($github_paginator->fetchAll($github->repos()->releases(), 'all', [$nickname, $repo_name]) as $github_release)
     {
       if(!$repo->reporeleases->contains('release_name', $github_release['name']))
       {
