@@ -24,7 +24,7 @@ class CreateReposTable extends Migration
       $table->integer('user_id')->nullable()->references('id')->on('users');
       $table->integer('organization_id')->nullable()->references('id')->on('organizations');
       $table->boolean('webhook')->default(false);
-      $table->string('webhook_password');
+      $table->string('webhook_password')->nullable();
       $table->boolean('telegram_notifications')->default(true);
       $table->string('telegram_chatid')->nullable();
       $table->boolean('autoreleasetags')->default(false);
