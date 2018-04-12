@@ -5,7 +5,11 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
+                @if(empty($user->name))
                 <div class="panel-heading">{{ $user->nickname }} ({{ $user->name }})</div>
+                @else
+                <div class="panel-heading">{{ $user->nickname }}</div>
+                @endif
                 <div class="panel-body">
                   @if(Auth::user()==$user)
                   {!! Form::open(['route' => 'platforms.create', 'method' => 'get']) !!}
