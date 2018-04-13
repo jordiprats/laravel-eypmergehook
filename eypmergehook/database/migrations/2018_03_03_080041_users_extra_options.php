@@ -14,10 +14,14 @@ class UsersExtraOptions extends Migration
   public function up()
   {
     Schema::table('users', function (Blueprint $table) {
-      $table->boolean('telegram_notifications')->default(true);
+      $table->boolean('telegram_notifications')->default(false);
       $table->string('telegram_chatid')->nullable();
       $table->timestamp('github_repos_updated_on')->nullable();
       $table->timestamp('github_organizations_updated_on')->nullable();
+      $table->boolean('webhook')->default(false);
+      $table->string('webhook_password')->nullable();
+      $table->boolean('autoreleasetags')->default(true);
+      $table->boolean('autotagforks')->default(false);
     });
   }
 
@@ -31,6 +35,12 @@ class UsersExtraOptions extends Migration
     Schema::table('users', function (Blueprint $table) {
       $table->dropColumn('telegram_notifications');
       $table->dropColumn('telegram_chatid');
+      $table->dropColumn('github_repos_updated_on');
+      $table->dropColumn('github_organizations_updated_on');
+      $table->dropColumn('webhook');
+      $table->dropColumn('webhook_password');
+      $table->dropColumn('autoreleasetags');
+      $table->dropColumn('autotagforks');
     });
   }
 }

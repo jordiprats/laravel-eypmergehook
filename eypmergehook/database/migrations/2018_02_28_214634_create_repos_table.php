@@ -28,6 +28,7 @@ class CreateReposTable extends Migration
       $table->boolean('telegram_notifications')->default(true);
       $table->string('telegram_chatid')->nullable();
       $table->boolean('autoreleasetags')->default(false);
+      $table->boolean('forceautotag')->default(false);
       $table->integer('github_id')->nullable();
       $table->timestamps();
       $table->timestamp('repo_analyzed_on')->nullable();

@@ -16,11 +16,36 @@
         <img src="https://github.com/{{ $user->nickname }}.png?size=200" class="img-rounded"/>
     </div>
     <div class="col-sm-8">
-      {{ Form::label('telegram_notifications', 'Telegram notifications') }}
-      {{ Form::checkbox('telegram_notifications', '1', $user->telegram_notifications==1) }}
+      <h2>Default settings for puppet modules</h2>
+      <hr />
+      <div class="form-group">
+        {{ Form::label('webhook', 'Enable default webhook') }}
+        {{ Form::checkbox('webhook', '1', $user->webhook==1) }}
+      </div>
+      <div class="form-group">
+        {{ Form::label('webhook_password', 'Default webhook password') }}
+        {{ Form::text('webhook_password', $user->webhook_password) }}
+      </div>
+      <hr />
+      <div class="form-group">
+        {{ Form::label('autoreleasetags', 'Enable creation of releases based on tags') }}
+        {{ Form::checkbox('autoreleasetags', '1', $user->autoreleasetags==1) }}
+      </div>
+      <div class="form-group">
+        {{ Form::label('autotagforks', 'Enable auto-tagging for forked repos') }}
+        {{ Form::checkbox('autotagforks', '1', $user->autotagforks==1) }}
+      </div>
+      <hr />
+      <div class="form-group">
+        {{ Form::label('telegram_notifications', 'Telegram notifications') }}
+        {{ Form::checkbox('telegram_notifications', '1', $user->telegram_notifications==1) }}
+      </div>
 
-      {{ Form::label('telegram_chatid', 'Telegram chatid') }}
-      {{ Form::text('telegram_chatid', $user->telegram_chatid) }}
+      <div class="form-group">
+        {{ Form::label('telegram_chatid', 'Telegram chatid') }}
+        {{ Form::text('telegram_chatid', $user->telegram_chatid) }}
+      </div>
+
       <hr />
         <p>
           <ul>

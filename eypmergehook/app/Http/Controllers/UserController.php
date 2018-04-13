@@ -126,12 +126,24 @@ class UserController extends Controller
     $this->validate($request, array(
       'telegram_chatid'        => 'nullable|string|max:255',
       'telegram_notifications' => 'boolean',
+      'webhook_password'       => 'nullable|string|max:255',
+      'webhook'                => 'boolean',
+      'autoreleasetags'        => 'boolean',
+      'autotagforks'           => 'boolean',
+
     ));
 
     $user = Auth::user();
 
     $user->telegram_chatid=$request->telegram_chatid;
     $user->telegram_notifications=$request->telegram_notifications==1?true:false;
+    
+    $user->webhook_password=$request->webhook_password;
+    $user->webhook=$request->webhook==1?true:false;
+
+    $user->autoreleasetags=$request->autoreleasetags==1?true:false;
+    $user->autotagforks=$request->autotagforks==1?true:false;
+    
     $user->save();
 
     //flash data
