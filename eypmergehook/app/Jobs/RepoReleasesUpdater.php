@@ -75,72 +75,71 @@ class RepoReleasesUpdater implements ShouldQueue
     {
       if($repo)
       {
-        if($repo->autoreleasetags)
+        if($user->autoreleasetags || $repo->autoreleasetags)
         {
-          //moure tot lo següent aqui
-        }
-        $github_account=LinkedSocialAccount::where(['user_id' => $user->id, 'provider' => 'github'])->first();
-        if($github_account)
-        {
-          //TODO: establir limit requests a la api de github
-          $github = app('github.factory')->make(['token' => $github_account->token, 'method' => 'token']);
-
-
-          $github_paginator_releases  = new ResultPager($github);
-          $github_repo_releases = $github_paginator_releases->fetchAll($github->repos()->releases(), 'all', [$this->owner, $this->repo]);
-
-          foreach($github_repo_releases as $release)
+          $github_account=LinkedSocialAccount::where(['user_id' => $user->id, 'provider' => 'github'])->first();
+          if($github_account)
           {
-            if(!$repo->reporeleases->contains('release_name', $release['name']))
-            {
-              RepoRelease::create([
-                'release_name' => $release['name'],
-                'repo_id'      => $repo->id,
-              ]);
-            }
-          }
+            //TODO: establir limit requests a la api de github
+            $github = app('github.factory')->make(['token' => $github_account->token, 'method' => 'token']);
 
-          //print_r($github_repo_releases);
 
-          $github_paginator  = new ResultPager($github);
-          foreach ($github_paginator->fetchAll($github->repos(), 'tags', [$this->owner, $this->repo]) as $github_tag)
-          {
-            //print_r($github_tag);
-            //Log::info($this->owner."/".$this->repo.": ".$github_tag['name']);
+            $github_paginator_releases  = new ResultPager($github);
+            $github_repo_releases = $github_paginator_releases->fetchAll($github->repos()->releases(), 'all', [$this->owner, $this->repo]);
 
-            if(!$repo->reporeleases->contains('release_name', $github_tag['name']))
+            foreach($github_repo_releases as $release)
             {
-              $reporelease = RepoRelease::create([
-                'release_name' => $github_tag['name'],
-                'repo_id'      => $repo->id,
-              ]);
-            }
-
-            // miro si existeix a github la release
-            //if(!$this->isReleased($github_repo_releases, $github_tag['name']))
-            if(!$repo->reporeleases->contains('release_name', $github_tag['name']))
-            {
-              $github->repos()->releases()->create($this->owner, $this->repo, array('tag_name' => $github_tag['name'], 'name' => $github_tag['name'], 'body' => $github_tag['name'], 'target_commitish' => 'master'));
-            }
-            else
-            {
-              # verificar q no estigui en draft
-              //$release = $github->repos()->releases()->show($this->owner, $this->repo, substr($github_tag['commit']['sha'], 0, 7));
-              foreach($github_repo_releases as $release)
+              if(!$repo->reporeleases->contains('release_name', $release['name']))
               {
-                //print_r($release);
-                if(($release['name']==$github_tag['name']) && ($release['draft']==1))
-                {
-                  // $client->api('repo')->releases()->edit('twbs', 'bootstrap', $id, array('name' => 'New release name'));
-                  $github->repos()->releases()->edit($this->owner, $this->repo, $release['id'], array('draft' => false));
-                }
+                RepoRelease::create([
+                  'release_name' => $release['name'],
+                  'repo_id'      => $repo->id,
+                ]);
+              }
+            }
+
+            //print_r($github_repo_releases);
+
+            $github_paginator  = new ResultPager($github);
+            foreach ($github_paginator->fetchAll($github->repos(), 'tags', [$this->owner, $this->repo]) as $github_tag)
+            {
+              //print_r($github_tag);
+              //Log::info($this->owner."/".$this->repo.": ".$github_tag['name']);
+
+              if(!$repo->reporeleases->contains('release_name', $github_tag['name']))
+              {
+                $reporelease = RepoRelease::create([
+                  'release_name' => $github_tag['name'],
+                  'repo_id'      => $repo->id,
+                ]);
               }
 
-              //print_r($release);
+              // miro si existeix a github la release
+              //if(!$this->isReleased($github_repo_releases, $github_tag['name']))
+              if(!$repo->reporeleases->contains('release_name', $github_tag['name']))
+              {
+                $github->repos()->releases()->create($this->owner, $this->repo, array('tag_name' => $github_tag['name'], 'name' => $github_tag['name'], 'body' => $github_tag['name'], 'target_commitish' => 'master'));
+              }
+              else
+              {
+                # verificar q no estigui en draft
+                //$release = $github->repos()->releases()->show($this->owner, $this->repo, substr($github_tag['commit']['sha'], 0, 7));
+                foreach($github_repo_releases as $release)
+                {
+                  //print_r($release);
+                  if(($release['name']==$github_tag['name']) && ($release['draft']==1))
+                  {
+                    // $client->api('repo')->releases()->edit('twbs', 'bootstrap', $id, array('name' => 'New release name'));
+                    $github->repos()->releases()->edit($this->owner, $this->repo, $release['id'], array('draft' => false));
+                  }
+                }
+
+                //print_r($release);
+              }
             }
           }
+          //Fi coses a moure
         }
-        //Fi coses a moure
       }
       else
         Log::info("RepoReleasesUpdater: repo(".$this->owner."/".$this->repo.") - not found");

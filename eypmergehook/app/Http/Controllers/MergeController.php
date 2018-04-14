@@ -29,41 +29,36 @@ class MergeController extends Controller
     // bitbucket
     $project_key=$request->input('repository.project.key');
 
+    $user = User::where(['nickname' => $username])->first();
+    if(!$user)
+    {
+      # check for organization
+      $organization = Organization::where(['nickname' => $username])->first();
+      if($organization)
+      {
+        $user=$organization->users()->first();
+      }
+    }
+
     // heuristics tipus repo
     if($project_key=="")
     {
-      if(!$fork)
+      if(!$fork || $user->autotagforks)
       {
         try
         {
+          //dispatch(new RepoReleasesUpdater(<buscar usuari amb permisos>, $username, $repo));
           Log::info("job Tagger for ".$username."/".$repo);
           dispatch(new Tagger($username, $repo));
 
-          $user = User::where(['nickname' => $username])->first();
           if($user)
           {
             dispatch(new RepoReleasesUpdater($user->nickname, $username, $repo));
           }
           else
           {
-            # check for organization
-            $organization = Organization::where(['nickname' => $username])->first();
-            if($organization)
-            {
-              $user=$organization->users()->first();
-              if($user)
-              {
-                dispatch(new RepoReleasesUpdater($user->nickname, $username, $repo));
-              }
-            }
-            else
-            {
-              Log::info("ignorant hook de usuari no registrat");
-            }
+            Log::info("ignorant hook de usuari no registrat");
           }
-
-
-          //dispatch(new RepoReleasesUpdater(<buscar usuari amb permisos>, $username, $repo));
         }
         catch(\Exception $e)
         {
