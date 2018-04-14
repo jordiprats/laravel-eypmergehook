@@ -40,7 +40,10 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/login/{provider}',          'Auth\SocialAccountController@redirectToProvider');
 Route::get('/login/{provider}/callback', 'Auth\SocialAccountController@handleProviderCallback');
 
+Route::resource('/orgs', 'OrganizationController');
+Route::resource('/repos', 'RepoController');
 Route::resource('/platforms', 'PlatformController');
+Route::resource('/reporeleases', 'RepoReleaseController');
 
 Route::prefix('/{nickname}')->group(function () {
   Route::prefix('/platform-{platform}')->group(function () {
