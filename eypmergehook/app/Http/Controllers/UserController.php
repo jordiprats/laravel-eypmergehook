@@ -96,10 +96,24 @@ class UserController extends Controller
 
   public function getUserInfo($nickname)
   {
-    return view('home')
-            ->with('user',      User::where('nickname', $nickname)->first())
-            ->with('repos',     User::where('nickname', $nickname)->first()->repos)
-            ->with('platforms', User::where('nickname', $nickname)->first()->platforms);
+    if(User::where('nickname', $nickname)->count() == 1)
+    {
+      return view('home')
+              ->with('user',      User::where('nickname', $nickname)->first())
+              ->with('repos',     User::where('nickname', $nickname)->first()->repos)
+              ->with('platforms', User::where('nickname', $nickname)->first()->platforms);
+    }
+    elseif(Organization::where('nickname', $nickname)->count() == 1)
+    {
+      return view('home')
+              ->with('user',      Organization::where('nickname', $nickname)->first())
+              ->with('repos',     Organization::where('nickname', $nickname)->first()->repos)
+              ->with('platforms', array());
+    }
+    else
+    {
+      abort(404);
+    }
   }
 
   /**

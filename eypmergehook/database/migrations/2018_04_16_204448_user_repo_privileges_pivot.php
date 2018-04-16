@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRepoReleasesTable extends Migration
+class UserRepoPrivilegesPivot extends Migration
 {
   /**
    * Run the migrations.
@@ -13,12 +13,13 @@ class CreateRepoReleasesTable extends Migration
    */
   public function up()
   {
-    Schema::create('repo_releases', function (Blueprint $table) {
+    Schema::create('grants', function (Blueprint $table) {
       $table->increments('id');
+      $table->integer('user_id')->references('id')->on('users');
       $table->integer('repo_id')->references('id')->on('repos');
-      $table->string('release_name');
-      $table->boolean('is_latest')->default(false);
-      $table->boolean('private')->default(false);
+      $table->boolean('admin')->default(false);
+      $table->boolean('pull')->default(false);
+      $table->boolean('push')->default(false);
       $table->timestamps();
     });
   }
@@ -30,6 +31,6 @@ class CreateRepoReleasesTable extends Migration
    */
   public function down()
   {
-    Schema::dropIfExists('repo_releases');
+    Schema::dropIfExists('grants');
   }
 }

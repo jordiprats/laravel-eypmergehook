@@ -23,4 +23,33 @@ class Repo extends Model
   {
     return $this->hasMany(RepoRelease::class);
   }
+
+  public function grants()
+  {
+    return $this->belongsToMany(User::class)
+      ->as('grants')
+      ->withPivot('admin', 'push', 'pull')
+      ->withTimestamps();
+  }
+
+  public function admin_users()
+  {
+    return $this->belongsToMany(User::class)
+      ->as('grants')
+      ->wherePivot('admin', true);
+  }
+
+  public function push_users()
+  {
+    return $this->belongsToMany(User::class)
+      ->as('grants')
+      ->wherePivot('push', true);
+  }
+
+  public function pull_users()
+  {
+    return $this->belongsToMany(User::class)
+      ->as('grants')
+      ->wherePivot('pull', true);
+  }
 }

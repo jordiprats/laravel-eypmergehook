@@ -82,7 +82,7 @@ class PlatformController extends Controller
       return view('platforms.show')->with('platform', $platform)->with('user', $user);
     }
     else
-      return "error";
+      abort(404);
   }
 
   /**

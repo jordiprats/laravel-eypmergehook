@@ -71,6 +71,8 @@ class RepoReleasesUpdater implements ShouldQueue
 
     $repo = Repo::where(['full_name' => $this->owner."/".$this->repo, 'user_id' => $user->id])->first();
 
+    //TODO: organization
+
     if($user)
     {
       if($repo)

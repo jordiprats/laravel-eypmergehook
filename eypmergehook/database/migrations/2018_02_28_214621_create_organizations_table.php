@@ -25,6 +25,11 @@ class CreateOrganizationsTable extends Migration
       $table->timestamps();
       $table->timestamp('github_repos_updated_on')->nullable();
       $table->timestamp('github_organizations_updated_on')->nullable();
+      $table->boolean('webhook')->default(false);
+      $table->string('webhook_password')->nullable();
+      $table->boolean('autoreleasetags')->default(true);
+      $table->boolean('autotagforks')->default(false);
+
     });
   }
 
