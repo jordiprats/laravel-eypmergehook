@@ -10,6 +10,7 @@ use Session;
 use App\Repo;
 use App\RepoRelease;
 use App\User;
+use App\Organization;
 use Github\ResultPager;
 use Carbon\Carbon;
 use App\Jobs\RepoReleasesUpdater;
@@ -27,10 +28,10 @@ class RepoReleaseController extends Controller
       $user = Organization::where(['nickname' => $nickname])->first();
     else
     {
-      Log::info("RepoReleaseController::fetchGitHubRepoReleases: user(".$nickname.") not found");
-      return;
+        Log::info("RepoReleaseController::fetchGitHubRepoReleases: ".$nickname."/".$repo_name." - NOT FOUND");
+        return;
     }
-
+    
     $repo = Repo::where(['full_name' => $nickname."/".$repo_name, 'user_id' => $user->id])->first();
 
     foreach ($github_paginator->fetchAll($github->repos()->releases(), 'all', [$nickname, $repo_name]) as $github_release)
