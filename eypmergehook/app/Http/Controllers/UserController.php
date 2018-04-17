@@ -14,6 +14,7 @@ use Github\ResultPager;
 use App\LinkedSocialAccount;
 use Carbon\Carbon;
 use App\Jobs\RepoReleasesUpdater;
+use App\Jobs\AnalyzeGitRepo;
 
 class UserController extends Controller
 {
