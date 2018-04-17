@@ -39,25 +39,28 @@ class RepoReleaseController extends Controller
         return;
     }
 
-    if($user->autoreleasetags || $repo->autoreleasetags)
+    if($repo->repo_analyzed_on && $repo->is_puppet_module)
     {
-      foreach ($github_paginator->fetchAll($github->repos(), 'tags', [$nickname, $repo_name]) as $github_tag)
+      if($user->autoreleasetags || $repo->autoreleasetags)
       {
-        if(!$repo->reporeleases->contains('release_name', $github_tag['name']))
+        foreach ($github_paginator->fetchAll($github->repos(), 'tags', [$nickname, $repo_name]) as $github_tag)
         {
-          $github->repos()->releases()->create($nickname, $repo_name, array('tag_name' => $github_tag['name'], 'name' => $github_tag['name'], 'body' => $github_tag['name'], 'target_commitish' => 'master'));
+          if(!$repo->reporeleases->contains('release_name', $github_tag['name']))
+          {
+            $github->repos()->releases()->create($nickname, $repo_name, array('tag_name' => $github_tag['name'], 'name' => $github_tag['name'], 'body' => $github_tag['name'], 'target_commitish' => 'master'));
+          }
         }
       }
-    }
 
-    foreach ($github_paginator->fetchAll($github->repos()->releases(), 'all', [$nickname, $repo_name]) as $github_release)
-    {
-      if(!$repo->reporeleases->contains('release_name', $github_release['name']))
+      foreach ($github_paginator->fetchAll($github->repos()->releases(), 'all', [$nickname, $repo_name]) as $github_release)
       {
-        RepoRelease::create([
-          'release_name' => $github_release['name'],
-          'repo_id'      => $repo->id,
-        ]);
+        if(!$repo->reporeleases->contains('release_name', $github_release['name']))
+        {
+          RepoRelease::create([
+            'release_name' => $github_release['name'],
+            'repo_id'      => $repo->id,
+          ]);
+        }
       }
     }
   }
