@@ -17,6 +17,7 @@ use App\Jobs\RepoReleasesUpdater;
 
 class RepoReleaseController extends Controller
 {
+
   public static function fetchGitHubRepoReleases($nickname, $repo_name, $github)
   {
     Log::info("RepoReleaseController::fetchGitHubRepoReleases: ".$nickname."/".$repo_name);
@@ -36,6 +37,17 @@ class RepoReleaseController extends Controller
     {
         Log::info("RepoReleaseController::fetchGitHubRepoReleases: ".$nickname."/".$repo_name." - NOT FOUND");
         return;
+    }
+
+    if($user->autoreleasetags || $repo->autoreleasetags)
+    {
+      foreach ($github_paginator->fetchAll($github->repos(), 'tags', [$nickname, $repo_name]) as $github_tag)
+      {
+        if(!$repo->reporeleases->contains('release_name', $github_tag['name']))
+        {
+          $github->repos()->releases()->create($this->owner, $this->repo, array('tag_name' => $github_tag['name'], 'name' => $github_tag['name'], 'body' => $github_tag['name'], 'target_commitish' => 'master'));
+        }
+      }  
     }
 
     foreach ($github_paginator->fetchAll($github->repos()->releases(), 'all', [$nickname, $repo_name]) as $github_release)
