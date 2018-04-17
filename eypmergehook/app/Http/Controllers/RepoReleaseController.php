@@ -23,20 +23,24 @@ class RepoReleaseController extends Controller
     $github_paginator  = new ResultPager($github);
 
     if(User::where(['nickname' => $nickname])->count() == 1)
+    {
       $user = User::where(['nickname' => $nickname])->first();
+      $repo = Repo::where(['full_name' => $nickname."/".$repo_name, 'user_id' => $user->id])->first();
+    }
     elseif(Organization::where(['nickname' => $nickname])->count() == 1)
-      $user = Organization::where(['nickname' => $nickname])->first();
+    {
+      $organization = Organization::where(['nickname' => $nickname])->first();
+      $repo = Repo::where(['full_name' => $nickname."/".$repo_name, 'organization_id' => $organization->id])->first();
+    }
     else
     {
         Log::info("RepoReleaseController::fetchGitHubRepoReleases: ".$nickname."/".$repo_name." - NOT FOUND");
         return;
     }
 
-    $repo = Repo::where(['full_name' => $nickname."/".$repo_name, 'user_id' => $user->id])->first();
-
     foreach ($github_paginator->fetchAll($github->repos()->releases(), 'all', [$nickname, $repo_name]) as $github_release)
     {
-      if(($repo->reporeleases->count()>0)&&(!$repo->reporeleases->contains('release_name', $github_release['name'])))
+      if(!$repo->reporeleases->contains('release_name', $github_release['name']))
       {
         RepoRelease::create([
           'release_name' => $github_release['name'],

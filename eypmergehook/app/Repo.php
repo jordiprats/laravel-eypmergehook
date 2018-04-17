@@ -21,7 +21,7 @@ class Repo extends Model
 
   public function reporeleases()
   {
-    return $this->hasMany(RepoRelease::class);
+    return $this->hasMany(RepoRelease::class, 'repo_id');
   }
 
   public function grants()
