@@ -18,7 +18,6 @@ class AnalyzeGitRepo implements ShouldQueue
 
   protected $username;
   protected $reponame;
-  protected $repo;
 
   /**
    * Create a new job instance.
@@ -40,24 +39,24 @@ class AnalyzeGitRepo implements ShouldQueue
   {
     if(Repo::where(['full_name' => $this->username."/".$this->reponame])->count() == 1)
     {
-      $this->repo=Repo::where(['full_name' => $this->username."/".$this->reponame])->first();
+      $repo=Repo::where(['full_name' => $this->username."/".$this->reponame])->first();
 
       $date24hoursAgo = strtotime("-24 hours");
-      if((!$this->repo->repo_analyzed_on) || ($this->repo->repo_analyzed_on < $date24hoursAgo))
+      if((!$repo->repo_analyzed_on) || ($repo->repo_analyzed_on < $date24hoursAgo))
       {
-        Log::info("AnalyzeGitRepo: ".$this->repo->clone_url);
+        Log::info("AnalyzeGitRepo: ".$repo->clone_url);
 
-        $repo_info_output=shell_exec("docker run -i -v /root/.ssh:/root/.ssh -t eyp/gitrepoinfo /bin/bash /usr/bin/report.sh ".$this->repo->clone_url);
+        $repo_info_output=shell_exec("docker run -i -v /root/.ssh:/root/.ssh -t eyp/gitrepoinfo /bin/bash /usr/bin/report.sh ".$repo->clone_url);
         $repo_info_json = json_decode($repo_info_output, true);
 
 
-        $this->repo->is_puppet_module = $repo_info_json[$this->reponame]['is_puppet_module'];
-        $this->repo->has_readme = $repo_info_json[$this->reponame]['has_readme'];
-        $this->repo->has_changelog = $repo_info_json[$this->reponame]['has_changelog'];
+        $repo->is_puppet_module = $repo_info_json[$this->reponame]['is_puppet_module'];
+        $repo->has_readme = $repo_info_json[$this->reponame]['has_readme'];
+        $repo->has_changelog = $repo_info_json[$this->reponame]['has_changelog'];
 
-        $this->repo->repo_analyzed_on = Carbon::now();
+        $repo->repo_analyzed_on = Carbon::now();
 
-        $this->repo->save();
+        $repo->save();
       }
     }
     else
