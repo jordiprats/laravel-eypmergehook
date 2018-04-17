@@ -20,7 +20,6 @@ class RepoReleaseController extends Controller
 
   public static function fetchGitHubRepoReleases($nickname, $repo_name, $github)
   {
-    Log::info("RepoReleaseController::fetchGitHubRepoReleases: ".$nickname."/".$repo_name);
     $github_paginator  = new ResultPager($github);
 
     if(User::where(['nickname' => $nickname])->count() == 1)
@@ -41,6 +40,7 @@ class RepoReleaseController extends Controller
 
     if($repo->repo_analyzed_on && $repo->is_puppet_module)
     {
+      Log::info("RepoReleaseController::fetchGitHubRepoReleases: ".$nickname."/".$repo_name);
       if($user->autoreleasetags || $repo->autoreleasetags)
       {
         foreach ($github_paginator->fetchAll($github->repos(), 'tags', [$nickname, $repo_name]) as $github_tag)
