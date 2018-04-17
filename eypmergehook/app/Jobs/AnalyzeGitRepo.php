@@ -2,6 +2,10 @@
 
 namespace App\Jobs;
 
+use App\Repo;
+use Illuminate\Support\Facades\Log;
+use Carbon\Carbon;
+
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
@@ -12,16 +16,19 @@ class AnalyzeGitRepo implements ShouldQueue
 {
   use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-  protected $repo_url;
+  protected $username;
+  protected $reponame;
+  protected $repo;
 
   /**
    * Create a new job instance.
    *
    * @return void
    */
-   public function __construct($repo_url)
+   public function __construct($username, $repo)
    {
-     $this->repo_url = $repo_url;
+     $this->reponame = $repo;
+     $this->username = $username;
    }
 
   /**
@@ -31,14 +38,28 @@ class AnalyzeGitRepo implements ShouldQueue
    */
   public function handle()
   {
-    Log::info("AnalyzeGitRepo: ".$this->repo_url);
+    if(Repo::where(['full_name' => $this->username."/".$this->reponame])->count() == 1)
+    {
+      $this->repo=Repo::where(['full_name' => $this->username."/".$this->reponame])->first();
 
-    $repo_info_output="docker run -i -v /root/.ssh:/root/.ssh -t eyp/gitrepoinfo /bin/bash /usr/bin/report.sh ".$this->repo_url;
+      Log::info("AnalyzeGitRepo: ".$this->repo->clone_url);
 
-    $repo_info_json = json_decode($repo_info_output, true);
+      $repo_info_output=shell_exec("docker run -i -v /root/.ssh:/root/.ssh -t eyp/gitrepoinfo /bin/bash /usr/bin/report.sh ".$this->repo->clone_url);
+      $repo_info_json = json_decode($repo_info_output, true);
 
-    //https://stackoverflow.com/questions/4343596/how-can-i-parse-a-json-file-with-php?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
-    // echo $json_a['John'][status];
-    // echo $json_a['Jennifer'][status];
+
+      $this->repo->is_puppet_module = $repo_info_json[$this->reponame]['is_puppet_module'];
+      $this->repo->has_readme = $repo_info_json[$this->reponame]['has_readme'];
+      $this->repo->has_changelog = $repo_info_json[$this->reponame]['has_changelog'];
+
+      $this->repo->repo_analyzed_on = Carbon::now();
+
+      $this->repo->save();
+
+    }
+    else
+    {
+      Log::info("WTF - AnalyzeGitRepo: ".$this->username."/".$this->reponame." count: ".Repo::where(['full_name' => $this->username."/".$this->reponame])->count());
+    }
   }
 }

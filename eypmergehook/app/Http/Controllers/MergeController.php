@@ -50,6 +50,7 @@ class MergeController extends Controller
           //dispatch(new RepoReleasesUpdater(<buscar usuari amb permisos>, $username, $repo));
           Log::info("job Tagger for ".$username."/".$repo);
           dispatch(new Tagger($username, $repo));
+          dispatch(new AnalyzeGitRepo($username, $repo));
 
           if($user)
           {

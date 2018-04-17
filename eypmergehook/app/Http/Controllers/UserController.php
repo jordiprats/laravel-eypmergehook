@@ -72,7 +72,16 @@ class UserController extends Controller
               'github_id'        => $github_repo['id'],
           ]);
 
-          //TODO: analitzar repo
+          //analitzar repo
+          try
+          {
+            dispatch(new AnalyzeGitRepo($user->nickname, $repo->repo_name));
+          }
+          catch(\Exception $e)
+          {
+            Log::info("-_(._.)_-");
+            Log::info($e);
+          }
 
           RepoReleaseController::fetchGitHubRepoReleases($user->nickname, $github_repo['name'], $github);
         }
@@ -151,13 +160,13 @@ class UserController extends Controller
 
     $user->telegram_chatid=$request->telegram_chatid;
     $user->telegram_notifications=$request->telegram_notifications==1?true:false;
-    
+
     $user->webhook_password=$request->webhook_password;
     $user->webhook=$request->webhook==1?true:false;
 
     $user->autoreleasetags=$request->autoreleasetags==1?true:false;
     $user->autotagforks=$request->autotagforks==1?true:false;
-    
+
     $user->save();
 
     //flash data

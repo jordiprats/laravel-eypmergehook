@@ -21,7 +21,16 @@ class RepoReleaseController extends Controller
     Log::info("RepoReleaseController::fetchGitHubRepoReleases: ".$nickname."/".$repo_name);
     $github_paginator  = new ResultPager($github);
 
-    $user = User::where(['nickname' => $nickname])->first();
+    if(User::where(['nickname' => $nickname])->count() == 1)
+      $user = User::where(['nickname' => $nickname])->first();
+    elseif(Organization::where(['nickname' => $nickname])->count() == 1)
+      $user = Organization::where(['nickname' => $nickname])->first();
+    else
+    {
+      Log::info("RepoReleaseController::fetchGitHubRepoReleases: user(".$nickname.") not found");
+      return;
+    }
+
     $repo = Repo::where(['full_name' => $nickname."/".$repo_name, 'user_id' => $user->id])->first();
 
     foreach ($github_paginator->fetchAll($github->repos()->releases(), 'all', [$nickname, $repo_name]) as $github_release)

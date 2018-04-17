@@ -8,6 +8,7 @@ use Auth;
 use GitHub;
 use Session;
 use App\Repo;
+use App\Jobs\AnalyzeGitRepo;
 use Carbon\Carbon;
 use App\Organization;
 use Github\ResultPager;
@@ -55,7 +56,20 @@ class OrganizationController extends Controller
             'clone_url'        => $github_repo['clone_url'],
             'organization_id'  => $organization->id,
             'github_id'        => $github_repo['id'],
-        ]);
+          ]);
+
+        //analitzar repo
+        try
+        {
+          dispatch(new AnalyzeGitRepo($organization->nickname, $repo->repo_name));
+        }
+        catch(\Exception $e)
+        {
+          Log::info("-_(._.)_-");
+          Log::info($e);
+        }
+
+        RepoReleaseController::fetchGitHubRepoReleases($organization->nickname, $github_repo['name'], $github);
       }
       else
       {
