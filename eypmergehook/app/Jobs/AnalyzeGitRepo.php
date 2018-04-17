@@ -43,7 +43,7 @@ class AnalyzeGitRepo implements ShouldQueue
       $this->repo=Repo::where(['full_name' => $this->username."/".$this->reponame])->first();
 
       $date24hoursAgo = strtotime("-24 hours");
-      if((!$repo->repo_analyzed_on) || ($repo->repo_analyzed_on < $date24hoursAgo))
+      if((!$this->repo->repo_analyzed_on) || ($this->repo->repo_analyzed_on < $date24hoursAgo))
       {
         Log::info("AnalyzeGitRepo: ".$this->repo->clone_url);
 
@@ -57,7 +57,7 @@ class AnalyzeGitRepo implements ShouldQueue
 
         $this->repo->repo_analyzed_on = Carbon::now();
 
-        $this->repo->save();        
+        $this->repo->save();
       }
     }
     else
