@@ -31,6 +31,7 @@ class RepoReleaseController extends Controller
     {
       $organization = Organization::where(['nickname' => $nickname])->first();
       $repo = Repo::where(['full_name' => $nickname."/".$repo_name, 'organization_id' => $organization->id])->first();
+      $user=$organization;
     }
     else
     {
