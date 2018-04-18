@@ -74,6 +74,7 @@ class OrganizationController extends Controller
       else
       {
         // TODO: fer update de repo existent
+        RepoReleaseController::fetchGitHubRepoReleases($organization->nickname, $github_repo['name'], $github);
       }
 
       //dispatch(new RepoReleasesUpdater(<buscar usuari amb permisos>, $organization->nickname, $repo->repo_name));

@@ -145,6 +145,7 @@ class GitHubGetUserRepos implements ShouldQueue
 
         foreach ($user->organizations as $organization)
         {
+          //TODO: validar ultima sincronitrzacio
           OrganizationController::fetchGitHubRepos($organization, $github);
         }
 
