@@ -143,6 +143,11 @@ class GitHubGetUserRepos implements ShouldQueue
           Log::info("GitHubGetUserRepos: skipping ".$this->username." repos updated on".$user->github_repos_updated_on);
         }
 
+        foreach ($user->organizations as $organization)
+        {
+          OrganizationController::fetchGitHubRepos($organization, $github);
+        }
+
       }
     }
   }
