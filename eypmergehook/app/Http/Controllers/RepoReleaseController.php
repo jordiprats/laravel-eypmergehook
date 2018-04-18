@@ -38,6 +38,17 @@ class RepoReleaseController extends Controller
         return;
     }
 
+    foreach ($github_paginator->fetchAll($github->repos()->releases(), 'all', [$nickname, $repo_name]) as $github_release)
+    {
+      if(!$repo->reporeleases->contains('release_name', $github_release['name']))
+      {
+        RepoRelease::create([
+          'release_name' => $github_release['name'],
+          'repo_id'      => $repo->id,
+        ]);
+      }
+    }
+
     if($repo->repo_analyzed_on && $repo->is_puppet_module)
     {
       Log::info("RepoReleaseController::fetchGitHubRepoReleases: ".$nickname."/".$repo_name);
@@ -52,16 +63,7 @@ class RepoReleaseController extends Controller
         }
       }
 
-      foreach ($github_paginator->fetchAll($github->repos()->releases(), 'all', [$nickname, $repo_name]) as $github_release)
-      {
-        if(!$repo->reporeleases->contains('release_name', $github_release['name']))
-        {
-          RepoRelease::create([
-            'release_name' => $github_release['name'],
-            'repo_id'      => $repo->id,
-          ]);
-        }
-      }
+
     }
   }
 }
