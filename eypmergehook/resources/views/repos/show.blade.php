@@ -13,6 +13,7 @@
     <li>{{ $repo->repo_name }}</li>
     @else
     <li>is not a fork</li>
+    @endif
     @if($repo->repo_analyzed_on)
     <li>Github repo analyzed {{ Carbon\Carbon::parse($repo->repo_analyzed_on)->diffForHumans() }}</li>
     @else
