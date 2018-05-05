@@ -10,7 +10,7 @@
     <li>Puppet module</li>
     @endif
     @if($repo->fork)
-    <li>{{ $repo->repo_name }}</li>
+    <li>Forked from {{ $repo->repo_name }}</li>
     @else
     <li>is not a fork</li>
     @endif
