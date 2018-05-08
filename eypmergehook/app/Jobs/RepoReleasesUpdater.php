@@ -142,7 +142,6 @@ class RepoReleasesUpdater implements ShouldQueue
           }
           else
             Log::info("RepoReleasesUpdater: github account not found for username:".$this->username." owner: ".$this->owner." repo: ".$this->repo);
-          //Fi coses a moure
         }
         else
           Log::info("RepoReleasesUpdater: autorelease: ".$user->autoreleasetags."repo autorelease: ".$repo->autoreleasetags);
