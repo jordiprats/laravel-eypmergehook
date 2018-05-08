@@ -26,17 +26,17 @@ class GitHubGetUserRepos implements ShouldQueue
   use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
   protected $username;
-  protected $requester;
+  protected $requested_by;
 
   /**
    * Create a new job instance.
    *
    * @return void
    */
-  public function __construct($username, $requester)
+  public function __construct($username, $requested_by)
   {
     $this->username = $username;
-    $this->requester = $requester;
+    $this->requested_by = $requested_by;
   }
 
   /**
@@ -46,10 +46,13 @@ class GitHubGetUserRepos implements ShouldQueue
    */
   public function handle()
   {
-    Log::info("GitHubGetUserRepos: ".$this->username." requested by ".$this->requester);
+    Log::info("GitHubGetUserRepos: ".$this->username." requested by ".$this->requested_by);
 
     $user = User::where(['nickname' => $this->username])->first();
-    $user_requesting = User::where(['nickname' => $this->requester])->first();
+    $user_requesting = User::where(['nickname' => $this->requested_by])->first();
+
+    if(!$user_requesting)
+      $user_requesting=$user;
 
     //TODO: moure al UserController
     if($user)
