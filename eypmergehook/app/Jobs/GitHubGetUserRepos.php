@@ -26,15 +26,17 @@ class GitHubGetUserRepos implements ShouldQueue
   use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
   protected $username;
+  protected $requester;
 
   /**
    * Create a new job instance.
    *
    * @return void
    */
-  public function __construct($username)
+  public function __construct($username, $requester)
   {
     $this->username = $username;
+    $this->requester = $requester;
   }
 
   /**
@@ -44,14 +46,15 @@ class GitHubGetUserRepos implements ShouldQueue
    */
   public function handle()
   {
-    Log::info("GitHubGetUserRepos: ".$this->username);
+    Log::info("GitHubGetUserRepos: ".$this->username." requested by ".$this->requester);
 
     $user = User::where(['nickname' => $this->username])->first();
+    $user_requesting = User::where(['nickname' => $this->requester])->first();
 
     //TODO: moure al UserController
     if($user)
     {
-      $github_account=LinkedSocialAccount::where(['user_id' => $user->id, 'provider' => 'github'])->first();
+      $github_account=LinkedSocialAccount::where(['user_id' => $user_requesting->id, 'provider' => 'github'])->first();
       if($github_account)
       {
         //TODO: establir limit requests a la api de github

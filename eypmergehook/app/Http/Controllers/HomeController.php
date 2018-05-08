@@ -26,7 +26,7 @@ class HomeController extends Controller
     {
         return view('home')
                 ->with('user', Auth::user())
-                ->with('repos', Auth::user()->repos)
-                ->with('platforms', Auth::user()->platforms);
+                ->with('repos', Auth::user()->repos->sortBy('repo_name'))
+                ->with('platforms', Auth::user()->platforms->sortBy('platform_name'));
     }
 }

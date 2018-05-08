@@ -44,7 +44,7 @@ class SocialAccountController extends Controller
 
       if($provider=="github")
       {
-        dispatch(new GitHubGetUserRepos($user->nickname));
+        dispatch(new GitHubGetUserRepos($user->nickname, $user->nickname));
       }
 
       return redirect()->action('HomeController@index');
@@ -80,7 +80,7 @@ class SocialAccountController extends Controller
 
       if($provider=="github")
       {
-        dispatch(new GitHubGetUserRepos($user->nickname));
+        dispatch(new GitHubGetUserRepos($user->nickname, $user->nickname));
       }
 
       return redirect()->action('HomeController@index');

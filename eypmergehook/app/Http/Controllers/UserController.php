@@ -45,7 +45,7 @@ class UserController extends Controller
             $github_repo_extended=$github->repos()->showById($github_repo['id']);
             // print_r($github_repo_extended);
 
-            $fork=$github_repo_extended['parent']['clone_url'];
+            $fork=$github_repo_extended['parent']['full_name'];
           }
           else
           {
