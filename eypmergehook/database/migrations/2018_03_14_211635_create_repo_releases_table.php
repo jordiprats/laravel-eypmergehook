@@ -19,6 +19,8 @@ class CreateRepoReleasesTable extends Migration
       $table->string('release_name');
       $table->boolean('is_latest')->default(false);
       $table->boolean('private')->default(false);
+      $table->boolean('has_readme')->default(false);
+      $table->boolean('has_changelog')->default(false);
       $table->timestamps();
     });
   }

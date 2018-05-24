@@ -33,8 +33,6 @@ class CreateReposTable extends Migration
       $table->timestamps();
       $table->timestamp('repo_analyzed_on')->nullable();
       $table->boolean('is_puppet_module')->default(false);
-      $table->boolean('has_readme')->default(false);
-      $table->boolean('has_changelog')->default(false);
       $table->timestamp('fetched_repo_releases_on')->nullable();
     });
   }
